@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TestChek.Models.TestClass>
+
+@{
+    ViewBag.Title = "MyResults";
+    ViewBag.Class = "container body-content";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyResults</h2>
+
+<p>
+    Testing performed on @DateTime.Today.ToShortDateString().
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TestName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MinReferenceRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MaxReferenceRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Units)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TestName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Result)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MinReferenceRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MaxReferenceRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Units)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+    }
+
+</table>
