@@ -197,6 +197,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CompMetPanel.cs" />
     <Compile Include="Models\FAQ.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\MyAccount.cs" />
     <Compile Include="Models\Photos.cs" />
     <Compile Include="Models\ResultGenerator.cs" />
+    <Compile Include="Models\ResultRecord.cs" />
     <Compile Include="Models\TestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
