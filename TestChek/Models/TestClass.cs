@@ -8,32 +8,32 @@ namespace TestChek.Models
     public class TestClass
     {
         //represents the name of a test
-        public string TestName;
+        public string testName;
         //represents the result of a test
-        public float Result;
+        public float result;
         //represents the minimul value of the test's normal range
-        public float MinReferenceRange;
+        public float minReferenceRange;
         //represents the maximum value of the test's normal range
-        public float MaxReferenceRange;
+        public float maxReferenceRange;
         //represents the units associated with a test's value
-        public string Units;
+        public string units;
 
 
         public TestClass()
         {
             Random testResult = new Random();
 
-            TestName = "WBC";
-            MinReferenceRange = 5.0f;
-            MaxReferenceRange = 10.0f;
-            Result = testResult.Next(5, 10);
-            Units = "x 10^3/uL";
+            testName = "WBC";
+            minReferenceRange = 5.0f;
+            maxReferenceRange = 10.0f;
+            result = testResult.Next(5, 10);
+            units = "x 10^3/uL";
 
-            TestName = "RBC";
-            MinReferenceRange = 3.90f;
-            MaxReferenceRange = 5.10f;
-            Result = testResult.Next(3, 5);
-            Units = "x 10^6/uL";
+            testName = "RBC";
+            minReferenceRange = 3.90f;
+            maxReferenceRange = 5.10f;
+            result = testResult.Next(3, 5);
+            units = "x 10^6/uL";
     }
 
         }

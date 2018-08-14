@@ -117,3 +117,5 @@ C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Microsoft.AspNet.Telemet
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Diagnostics.DiagnosticSource.dll
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Microsoft.AspNet.TelemetryCorrelation.xml
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Diagnostics.DiagnosticSource.xml
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Dapper.dll
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Dapper.xml

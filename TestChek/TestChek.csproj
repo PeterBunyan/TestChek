@@ -51,6 +51,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper, Version=1.50.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.5\lib\net451\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -194,11 +197,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MyAccountController.cs" />
+    <Compile Include="DataAccess.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\CompMetPanel.cs" />
     <Compile Include="Models\FAQ.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -206,7 +211,9 @@
     <Compile Include="Models\MyAccount.cs" />
     <Compile Include="Models\Photos.cs" />
     <Compile Include="Models\ResultGenerator.cs" />
+    <Compile Include="Models\PatientRecord.cs" />
     <Compile Include="Models\ResultRecord.cs" />
+    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\TestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -227,6 +234,8 @@
     </Content>
     <Content Include="Photos\About.jpeg" />
     <Content Include="Photos\Index.jpeg" />
+    <Content Include="Photos\IndexProvider.jpeg" />
+    <Content Include="Photos\IndexUser.jpg" />
     <Content Include="Photos\laboratory-313864_1920.jpg" />
     <Content Include="Photos\medical-appointment-doctor-healthcare-40568.jpeg" />
     <Content Include="Photos\pexels-photo-1164531.jpeg" />
@@ -328,6 +337,7 @@
     <Content Include="Views\MyAccount\Index.cshtml" />
     <Content Include="Views\MyAccount\PayMyBill.cshtml" />
     <Content Include="Views\MyAccount\MyResults.cshtml" />
+    <Content Include="Views\Home\IndexProvider.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
