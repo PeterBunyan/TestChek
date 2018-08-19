@@ -19,8 +19,6 @@ namespace TestChek.Controllers
 
         public ActionResult About()
         {
-            DataAccess userid = new DataAccess();
-            ViewBag.Message = userid.GetId("Smith");
 
             return View();
         }
