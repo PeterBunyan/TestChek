@@ -56,8 +56,8 @@
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">About Us</a>
                         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(0px, 37px, 0px);">
                             <ul>
-                                <li class="dropdown-item">@Html.ActionLink("Mission", "About", "Home")</li>
-                                <li class="dropdown-item">@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                                <li class="dropdown-item btn-link">@Html.ActionLink("Mission", "About", "Home")</li>
+                                <li class="dropdown-item btn-link">@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                             </ul>
                         </div>
                     </li>
@@ -81,9 +81,7 @@
             <p class="copyright">&copy; @DateTime.Now.Year - TestChek, Inc.</p>
         </footer>
     </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 </body>
 </html>
