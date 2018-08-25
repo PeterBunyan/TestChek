@@ -119,3 +119,9 @@ C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Microsoft.AspNet.Telemet
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Diagnostics.DiagnosticSource.xml
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Dapper.dll
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Dapper.xml
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Net.Http.Formatting.dll
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Web.Http.dll
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Web.Http.WebHost.dll
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Net.Http.Formatting.xml
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Web.Http.xml
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Web.Http.WebHost.xml

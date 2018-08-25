@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Class = "container body-content";
+
 }
 
 <h2>Index</h2>
@@ -10,20 +12,21 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Id)
-        </th>
-        <th></th>
-    </tr>
-
+<table id="aspnetusers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
     @foreach (var item in Model)
     {
         <tr>
@@ -45,3 +48,12 @@
     }
 
 </table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#aspnetusers").DataTable();
+        });
+    </script>
+    }

@@ -13,8 +13,8 @@ namespace TestChek
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/respond.js",
-                        "~/scrips/datatables/jquery.datatables.js",
-                        "~/scrips/datatables/datatables.bootstrap.js"));
+                        "~/scripts/datatables/jquery.datatables.js",
+                        "~/scripts/datatables/datatables.bootstrap4.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -26,7 +26,7 @@ namespace TestChek
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-lumen.css",
-                      "~/content/datatables/css/datatables.bootstrap.css",
+                      "~/content/datatables/css/datatables.bootstrap4.css",
                       "~/Content/site.css"));
         }
     }
