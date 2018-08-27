@@ -27,17 +27,17 @@ namespace TestChek.Models
 
         public string SecurityStamp { get; set; }
 
-        public string PhoneNumber { get; set; }
+        //public string PhoneNumber { get; set; }
 
-        public bool PhoneNumberConfirmed { get; set; }
+        //public bool PhoneNumberConfirmed { get; set; }
 
-        public bool TwoFactorEnabled { get; set; }
+        //public bool TwoFactorEnabled { get; set; }
 
-        public DateTime? LockoutEndDateUtc { get; set; }
+        //public DateTime? LockoutEndDateUtc { get; set; }
 
-        public bool LockoutEnabled { get; set; }
+        //public bool LockoutEnabled { get; set; }
 
-        public int AccessFailedCount { get; set; }
+        //public int AccessFailedCount { get; set; }
 
         [Required]
         [StringLength(256)]

@@ -19,6 +19,8 @@ namespace TestChek.Controllers.Api
         //GET /api/aspnetusers (Patients)
         public IEnumerable<AspNetUser> GetAspNetUsers()
         {
+
+
             return _context.AspNetUsers.ToList();
         }
 
@@ -35,16 +37,36 @@ namespace TestChek.Controllers.Api
 
         //POST /api/aspnetusers
         [HttpPost]
-        public AspNetUser CreateAspNetUser(AspNetUser aspNetUser)
+        public PatientRecord CreatePatientRecord(string id)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            _context.AspNetUsers.Add(aspNetUser);
+            var aspNetUserInDB = _context.AspNetUsers.SingleOrDefault(c => c.Id == id);
+
+            var pr = new PatientRecord();
+            pr.firstName = aspNetUserInDB.FirstName;
+            pr.lastName = aspNetUserInDB.LastName;
+            pr.medRecNumber = aspNetUserInDB.Id;
+
+            _context.PatientRecords.Add(pr);
             _context.SaveChanges();
 
-            return aspNetUser;
+            return pr;
         }
+
+        ////POST /api/aspnetusers
+        //[HttpPost]
+        //public AspNetUser CreateAspNetUser(AspNetUser aspNetUser)
+        //{
+        //    if (!ModelState.IsValid)
+        //        throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+        //    _context.AspNetUsers.Add(aspNetUser);
+        //    _context.SaveChanges();
+
+        //    return aspNetUser;
+        //}
 
         //PUT /api/aspnetusers/1
         [HttpPut]
@@ -71,10 +93,16 @@ namespace TestChek.Controllers.Api
         public void DeleteAspNetUser(string id)
         {
             var aspNetUserInDB = _context.AspNetUsers.SingleOrDefault(c => c.Id == id);
-
+           
             if (aspNetUserInDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
+            var pr = new PatientRecord();
 
+            pr.firstName = aspNetUserInDB.FirstName;
+
+            //we have a user~
+
+            
             _context.AspNetUsers.Remove(aspNetUserInDB);
             _context.SaveChanges();
         }

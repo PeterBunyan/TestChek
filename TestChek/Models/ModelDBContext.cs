@@ -16,7 +16,8 @@ namespace TestChek.Models
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<ResultRecordTable> ResultRecordTables { get; set; }
+        public virtual DbSet<PatientRecord> PatientRecords { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
