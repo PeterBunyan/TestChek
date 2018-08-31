@@ -21,7 +21,6 @@ namespace TestChek.Controllers
 
         public ActionResult MyResults()
         {
-            DataAccess db = new DataAccess();
 
             //patientRecord = db.GetResultRecord("lastName");
             //passes new instance of patient results to the view

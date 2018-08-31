@@ -125,5 +125,5 @@ C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csproj.Co
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.dll
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.pdb
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csprojResolveAssemblyReference.cache
-C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.Migrations.InitalMigration.resources
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.Migrations.InitialMigration.resources
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csproj.GenerateResource.Cache

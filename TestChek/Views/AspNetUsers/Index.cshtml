@@ -25,6 +25,8 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th></th>
+            <th></th>
+            <th>Test Menu (choose all that apply)</th>
         </tr>
     </thead>
     @foreach (var item in Model)
@@ -44,6 +46,18 @@
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
             </td>
+            <td>
+                <button data-aspnetuser-id="@item.Id" class="btn js-order">Order New Tests</button>
+                <button data-aspnetuser-id="@item.Id" class="btn js-completed">View Completed Tests</button>
+            </td>
+            <td>
+                <select id="testMenu" class="selectpicker" multiple>
+                    <option>CBC</option>
+                    <option>Comp. Met. Panel</option>
+                    <option>Urine Screen</option>
+                </select>
+                <button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>
+            </td>
         </tr>
     }
 
@@ -53,7 +67,22 @@
 {
     <script>
         $(document).ready(function () {
-            $("#aspnetusers").DataTable();
+            //$("#aspnetusers").DataTable();
+            //$.fn.selectpicker.Constructor.BootstrapVersion = '4';
+            //$("#testMenu").selectpicker('render');
+            //$("#testMenu").selectpicker('refresh');
+            $("#aspnetusers .js-order").on("click", function () {
+                if (confirm("Are you sure you want to order these tests?")) {
+                    $.ajax({
+                        url: "/api/aspnetusers/" + $(this).attr("data-aspnetuser-id"),
+                        method: "PUT",
+                        success: function () {
+                            console.log("Success");
+                        }
+                    })
+                }
+            });
+
         });
     </script>
     }

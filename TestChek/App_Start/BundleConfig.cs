@@ -10,9 +10,11 @@ namespace TestChek
         {
             bundles.Add(new ScriptBundle("~/bundles/lib").Include(
                         "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/umd/popper.js",
                         "~/Scripts/bootstrap.js",
                         "~/Scripts/bootbox.js",
                         "~/Scripts/respond.js",
+                        "~/Scripts/bootstrap-select.js",
                         "~/scripts/datatables/jquery.datatables.js",
                         "~/scripts/datatables/datatables.bootstrap4.js"));
 
@@ -26,6 +28,7 @@ namespace TestChek
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap-lumen.css",
+                      "~/Content/bootstrap-select.css",
                       "~/content/datatables/css/datatables.bootstrap4.css",
                       "~/Content/site.css"));
         }

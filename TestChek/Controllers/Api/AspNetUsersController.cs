@@ -48,6 +48,7 @@ namespace TestChek.Controllers.Api
             pr.firstName = aspNetUserInDB.FirstName;
             pr.lastName = aspNetUserInDB.LastName;
             pr.medRecNumber = aspNetUserInDB.Id;
+            pr.timeofTest = DateTime.Now.Date;
 
             _context.PatientRecords.Add(pr);
             _context.SaveChanges();
@@ -68,9 +69,10 @@ namespace TestChek.Controllers.Api
         //    return aspNetUser;
         //}
 
+
         //PUT /api/aspnetusers/1
         [HttpPut]
-        public void UpdateAspNetUser(string id, AspNetUser aspNetUser)
+        public void UpdateAspNetUser(string id)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -80,13 +82,43 @@ namespace TestChek.Controllers.Api
             if (aspNetUserInDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            aspNetUserInDB.FirstName = aspNetUser.FirstName;
-            aspNetUserInDB.LastName = aspNetUser.LastName;
-            aspNetUserInDB.Id = aspNetUser.Id;
-            aspNetUserInDB.UserName = aspNetUser.UserName;
+            var pr = new PatientRecord();
+            var orderedTest = new TestClass();
+            pr.testId = orderedTest.testId;
+            pr.firstName = aspNetUserInDB.FirstName;
+            pr.lastName = aspNetUserInDB.LastName;
+            pr.medRecNumber = aspNetUserInDB.Id;
+            pr.timeofTest = DateTime.Now.Date;
 
-            _context.SaveChanges();
+            _context.PatientRecords.Add(pr);
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+
+            }
         }
+        ////PUT /api/aspnetusers/1
+        //[HttpPut]
+        //public void UpdateAspNetUser(string id, AspNetUser aspNetUser)
+        //{
+        //    if (!ModelState.IsValid)
+        //        throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+        //    var aspNetUserInDB = _context.AspNetUsers.SingleOrDefault(c => c.Id == id);
+
+        //    if (aspNetUserInDB == null)
+        //        throw new HttpResponseException(HttpStatusCode.NotFound);
+
+        //    aspNetUserInDB.FirstName = aspNetUser.FirstName;
+        //    aspNetUserInDB.LastName = aspNetUser.LastName;
+        //    aspNetUserInDB.Id = aspNetUser.Id;
+        //    aspNetUserInDB.UserName = aspNetUser.UserName;
+
+        //    _context.SaveChanges();
+        //}
 
         //DELETE /api/aspnetusers/1
         [HttpDelete]

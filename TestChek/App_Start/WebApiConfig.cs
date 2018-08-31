@@ -9,7 +9,7 @@ namespace TestChek
     {
         public static void Register(HttpConfiguration config)
         {
-            config.MapHttpAttributeRoutes();
+            //config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

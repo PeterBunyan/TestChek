@@ -2,39 +2,42 @@ namespace TestChek.Models
 {
     using System;
     using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ModelDBContext : DbContext
+    public class ModelDBContext : DbContext
     {
-        public ModelDBContext()
-            : base("name=ModelDBContext")
-        {
-        }
+        // Your context has been configured to use a 'ModelDBContext' connection string from your application's 
+        // configuration file (App.config or Web.config). By default, this connection string targets the 
+        // 'TestChek.Models.ModelDBContext' database on your LocalDb instance. 
+        // 
+        // If you wish to target a different database and/or database provider, modify the 'ModelDBContext' 
+        // connection string in the application configuration file.
 
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<PatientRecord> PatientRecords { get; set; }
+        //public partial class ModelDBContext : DbContext
+        
+            public ModelDBContext()
+                : base("name=ModelDBContext")
+            {
+            }
+
+            public virtual DbSet<TestClass> TestClasses { get; set; }
+            public virtual DbSet<PatientRecord> PatientRecords { get; set; }
+            public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+            public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+            public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+            public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
 
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AspNetRole>()
-                .HasMany(e => e.AspNetUsers)
-                .WithMany(e => e.AspNetRoles)
-                .Map(m => m.ToTable("AspNetUserRoles").MapLeftKey("RoleId").MapRightKey("UserId"));
+        
+        // Add a DbSet for each entity type that you want to include in your model. For more information 
+        // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 
-            modelBuilder.Entity<AspNetUser>()
-                .HasMany(e => e.AspNetUserClaims)
-                .WithRequired(e => e.AspNetUser)
-                .HasForeignKey(e => e.UserId);
-
-            modelBuilder.Entity<AspNetUser>()
-                .HasMany(e => e.AspNetUserLogins)
-                .WithRequired(e => e.AspNetUser)
-                .HasForeignKey(e => e.UserId);
-        }
+        // public virtual DbSet<MyEntity> MyEntities { get; set; }
     }
+
+    //public class MyEntity
+    //{
+    //    public int Id { get; set; }
+    //    public string Name { get; set; }
+    //}
 }
