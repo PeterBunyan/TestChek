@@ -22,13 +22,15 @@ namespace TestChek.Models
 
             public virtual DbSet<TestClass> TestClasses { get; set; }
             public virtual DbSet<PatientRecord> PatientRecords { get; set; }
+            public virtual DbSet<OrderedTest> OrderedTests { get; set; }
             public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
             public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
             public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
             public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
 
 
-        
+
+
         // Add a DbSet for each entity type that you want to include in your model. For more information 
         // on configuring and using a Code First model, see http://go.microsoft.com/fwlink/?LinkId=390109.
 

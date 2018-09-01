@@ -206,6 +206,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AspNetUsersController.cs" />
+    <Compile Include="Controllers\Api\OrderedTestController.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />
     <Compile Include="Controllers\FAQController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ModelDBContext.cs" />
     <Compile Include="Models\MyAccount.cs" />
+    <Compile Include="Models\OrderedTest.cs" />
     <Compile Include="Models\PatientRecord.cs" />
     <Compile Include="Models\ResultRecordTable.cs" />
     <Compile Include="Models\RoleName.cs" />
