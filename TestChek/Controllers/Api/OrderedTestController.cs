@@ -11,6 +11,7 @@ namespace TestChek.Controllers.Api
 {
     public class OrderedTestController : ApiController
     {
+
         private ModelDBContext _context = new ModelDBContext();
 
         // GET: api/OrderedTest - returns pending tests for ALL patients
@@ -32,31 +33,24 @@ namespace TestChek.Controllers.Api
 
         // POST: api/OrderedTest
         [HttpPost]
-        public OrderedTest CreateOrderedTest([FromBody]string id, string test)
+        public void CreateOrderedTest(OrderedTest orderedTest)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
-
-            OrderedTest orderedTest = new OrderedTest
-            {
-                Id = id,
-                test = test
-            };
 
             _context.OrderedTests.Add(orderedTest);
             _context.SaveChanges();
 
-            return orderedTest;
         }
 
         // PUT: api/OrderedTest/5 - removes tests from pending database table after tests have been completed
         [HttpPut]
-        public void ClearOrderedTests(string id)
+        public void ClearOrderedTests(OrderedTest orderedTest)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
-            var orderedTestInDB = _context.OrderedTests.Where(c => c.Id == id);
+            var orderedTestInDB = _context.OrderedTests.Where(c => c.Id == orderedTest.Id);
 
             if (orderedTestInDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
@@ -70,9 +64,9 @@ namespace TestChek.Controllers.Api
 
         // DELETE: api/OrderedTest/5
         [HttpDelete]
-        public void DeleteOrderedTest(string id, string test)
+        public void DeleteOrderedTest(OrderedTest orderedTest)
         {
-            var orderedTestInDB = _context.OrderedTests.FirstOrDefault(c => c.Id == id && c.test == test);
+            var orderedTestInDB = _context.OrderedTests.FirstOrDefault(c => c.Id == orderedTest.Id && c.test == orderedTest.test);
 
             if (orderedTestInDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
