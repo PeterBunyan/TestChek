@@ -40,7 +40,6 @@ namespace TestChek.Controllers.Api
 
             _context.OrderedTests.Add(orderedTest);
             _context.SaveChanges();
-
         }
 
         // PUT: api/OrderedTest/5 - removes tests from pending database table after tests have been completed

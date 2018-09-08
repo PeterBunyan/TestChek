@@ -15,6 +15,6 @@ namespace TestChek.Models
         public string Id { get; set; }
 
         //ordered test that has not yet been completed
-        public string test { get; set; }
+        public string test { get; set; } // have this field just return the TestPanel Test name as a string?
     }
 }

@@ -1,41 +1,50 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using TestChek.Models;
 
-namespace TestChek.Controllers
+namespace TestChek.Models
 {
-    [Authorize]
-    public class MyAccountController : Controller
+    //the problem I'm having with two models in one view may partially be due to the way I have this class designed.
+    //instead of having each panel be a separate property, I should abstract things down to the essence of a panel - a list<TestClass> and maybe a string property to hold the panel name.
+    //maybe have each panel be a constructor that passes in a value (CBC, BMP, etc.)
+    public class TestPanel
     {
-        List<PatientRecord> patientRecord = new List<PatientRecord>();
-
-        // GET: MyAccount
-        public ActionResult Index()
+        [Key]
+        private int _testPanelId { get; set; }
+        public int testPanelId { get { return _testPanelId; } }
+        public string panelName { get; set; }
+        private List<TestClass> _panelTestList { get; set; }
+        public List<TestClass> panelTestList
         {
-            
-            return View();
+            get
+            {
+                return _panelTestList;
+            }
+            set
+            {
+                if (panelName == "CBC")
+                {
+                    _panelTestList = CBC();
+                    _testPanelId = 1;
+                }
+                else if (panelName == "BMP")
+                {
+                    _panelTestList = BasicMetPanel();
+                    _testPanelId = 2;
+                }
+                else if (panelName == "UA")
+                {
+                    _panelTestList = UrineScreen();
+                    _testPanelId = 3;
+                }
+                else
+                    throw new Exception("Test Panel spelled incorrectly or does not exist. Try 'CBC', 'BMP', or 'UA'.");
+            }
         }
 
-        public ActionResult MyResults()
-        {
-
-            //patientRecord = db.GetResultRecord("lastName");
-            //passes new instance of patient results to the view
-            var CBCPanelResults = GetCBCResults();
-
-            return View(CBCPanelResults);
-        }
-
-        public ActionResult PayMyBill()
-        {
-            return View();
-        }
-
-        //builds new panel of tests
-        private IEnumerable<TestClass> GetCBCResults()
+        public List<TestClass> CBC()
         {
             //testResult used to generate random results to simulate different patients
             Random testResult = new Random(Guid.NewGuid().GetHashCode());
@@ -46,11 +55,10 @@ namespace TestChek.Controllers
                 new TestClass { testName = "HGB", result = (testResult.Next(750, 1650) / 100), minReferenceRange = 11.5f, maxReferenceRange = 15.3f, units = "g/dL"},
                 new TestClass { testName = "HCT", result = (testResult.Next(2520, 4710) / 100), minReferenceRange = 35.2f, maxReferenceRange = 45.1f, units = "%" },
                 new TestClass { testName = "PLT", result = (testResult.Next(900, 6010) / 10), minReferenceRange = 160.0f, maxReferenceRange = 401.0f, units = "x 10^3/uL" }
-
                 };
         }
 
-        private IEnumerable<TestClass> GetCompMetaResults()
+        public List<TestClass> BasicMetPanel()
         {
             //testResult used to generate random results to simulate different patients
             Random testResult = new Random(Guid.NewGuid().GetHashCode());
@@ -67,7 +75,7 @@ namespace TestChek.Controllers
                 };
         }
 
-        public IEnumerable<TestClass> UrineScreen()
+        public List<TestClass> UrineScreen()
         {
             //testResult used to generate random results to simulate different patients
             Random testResult = new Random(Guid.NewGuid().GetHashCode());
@@ -86,18 +94,6 @@ namespace TestChek.Controllers
 
             };
         }
-
-        private IEnumerable<TestClass> GetAllResults()
-        {
-            return new List<TestClass>
-                {
-                //lists added together here
-                //this list/ienumerable of lists will be passed to the results view, 
-                //but a new class may need to be created for this list of lists, 
-                //so that the view model can display results correctly
-
-                };
-        }
-        
     }
+
 }
