@@ -79,6 +79,7 @@
         </nav>
     </header>
     @*container-fluid used for welcome pages, but container used for other pages*@
+    @*To Do: put container div into partial view and use if else statement to choose which page stile to render*@
     <div class="@ViewBag.Class" id="container-div">
         @RenderBody()
         @*hr and foot properties adjust to enhance welcome pages*@

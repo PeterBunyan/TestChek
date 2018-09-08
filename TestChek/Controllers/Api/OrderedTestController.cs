@@ -33,7 +33,7 @@ namespace TestChek.Controllers.Api
 
         // POST: api/OrderedTest
         [HttpPost]
-        public void CreateOrderedTest(OrderedTest orderedTest)
+        public void CreateOrderedTest([FromBody] OrderedTest orderedTest)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);

@@ -1,7 +1,10 @@
-﻿@model TestChek.ViewModel.OrderedTestViewModel
+﻿@model TestChek.Models.OrderedTestViewModel
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Class = "container body-content";
+
 }
 
 <h2>Index</h2>
@@ -11,26 +14,28 @@
 </p>
 <table id="aspnetusers" class="table table-bordered table-hover">
     <thead>
-        @foreach (var item in Model.patientList)
-        {
+            @*this needs to be changed. The headers in the for loop are being displayed twice, since 2 people in list.
+               Only other option I can think of is changing OrderedTestViewModel from List<AspNetUser> to just AspNetUser
+                and then have the model on this page be an IEnumerable. Logic in PhsycianLinksController would need to be changed, as a result*@
+            @foreach (var item in Model.patientList)
+            {
             <tr>
                 <th>
-                    @Html.DisplayFor(model => item.LastName)
+                    @Html.DisplayNameFor(model => item.LastName)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => item.FirstName)
+                    @Html.DisplayNameFor(model => item.FirstName)
                 </th>
                 <th>
-                    @Html.DisplayFor(model => item.Id)
+                    @Html.DisplayNameFor(model => item.Id)
                 </th>
                 <th></th>
                 <th></th>
                 <th>Test Menu (choose all that apply)</th>
             </tr>
-        }
-    </thead>
+            }
+        </thead>
 
-    }
     @foreach (var item in Model.patientList)
     {
         <tr>
@@ -70,7 +75,7 @@
                     </select>
                     <button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>
                 </td>*@
-            
+
             }
         </tr>
     }
@@ -78,10 +83,10 @@
 
 @section scripts
 {
-<script>
+    <script>
 
     $(document).ready(function () {
-        //$("#aspnetusers").DataTable();
+        $("#aspnetusers").DataTable();
         //$.fn.selectpicker.Constructor.BootstrapVersion = '4';
         //$("#testMenu").selectpicker('render');
         //$("#testMenu").selectpicker('refresh');
@@ -90,7 +95,9 @@
 
 
 
-        $("#aspnetusers .js-order").on("click", function () {
+
+
+        @*$("#aspnetusers .js-order").on("click", function () {
         var postToAPI = { @Model.orderedTest.test: $(this).attr("data-testpanel-test"), @Model.orderedTest.Id: $(this).attr("data-aspnetuser-id") }
             if (confirm("Are you sure you want to order these tests?")) {
                 $.ajax({
@@ -117,8 +124,8 @@
                     }
                 })
             }
-        });
+        });*@
 
         });
-</script>
+    </script>
 }

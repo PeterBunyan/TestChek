@@ -12,16 +12,21 @@ namespace TestChek.Models
     public class TestPanel
     {
         [Key]
-        private int _testPanelId { get; set; }
-        public int testPanelId { get { return _testPanelId; } }
+        public int _testPanelId { get; set; }
+        //private int _testPanelId;
+        //public int testPanelId { get { return _testPanelId; } }
         public string panelName { get; set; }
         private List<TestClass> _panelTestList { get; set; }
+            
+            
+
         public List<TestClass> panelTestList
         {
             get
             {
                 return _panelTestList;
             }
+            //eventually, assign this logic to private variable and remove here.
             set
             {
                 if (panelName == "CBC")
