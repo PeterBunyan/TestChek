@@ -16,5 +16,11 @@ namespace TestChek.Models
 
         //ordered test that has not yet been completed
         public string test { get; set; } // have this field just return the TestPanel Test name as a string?
+
+        public OrderedTest()
+        {
+        }
     }
+
+    
 }

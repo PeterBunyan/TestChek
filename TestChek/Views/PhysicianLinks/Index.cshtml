@@ -14,27 +14,41 @@
 </p>
 <table id="aspnetusers" class="table table-bordered table-hover">
     <thead>
-            @*this needs to be changed. The headers in the for loop are being displayed twice, since 2 people in list.
-               Only other option I can think of is changing OrderedTestViewModel from List<AspNetUser> to just AspNetUser
-                and then have the model on this page be an IEnumerable. Logic in PhsycianLinksController would need to be changed, as a result*@
-            @foreach (var item in Model.patientList)
-            {
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => item.LastName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => item.FirstName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => item.Id)
-                </th>
-                <th></th>
-                <th></th>
-                <th>Test Menu (choose all that apply)</th>
-            </tr>
-            }
-        </thead>
+        @*this needs to be changed. The headers in the for loop are being displayed twice, since 2 people in list.
+        Only other option I can think of is changing OrderedTestViewModel from List<AspNetUser> to just AspNetUser
+         and then have the model on this page be an IEnumerable. Logic in PhsycianLinksController would need to be changed, as a result*@
+        @*@foreach (var item in Model.patientList)
+        {
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => item.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => item.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => item.Id)
+            </th>
+            <th></th>
+            <th></th>
+            <th>Test Menu (choose all that apply)</th>
+        </tr>
+        }*@
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Medical Record Number
+            </th>
+            @*<th></th>*@
+            <th></th>
+            <th>Test Menu (choose all that apply)</th>
+        </tr>
+    </thead>
 
     @foreach (var item in Model.patientList)
     {
@@ -48,17 +62,32 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
-            <td>
+            @*<td>
                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                 @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
+            </td>*@
             <td>
                 <button data-aspnetuser-id="@item.Id" class="btn js-order">Order New Tests</button>
                 <button data-aspnetuser-id="@item.Id" class="btn js-completed">View Completed Tests</button>
             </td>
-
             <td>
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Test Menu</label>
+                        <select class="form-control" id="testMenu" @*onchange="getSelectedValue();"*@>
+                            @foreach (var testPanel in Model.testPanelList)
+                            {
+                                @*<option data-testpanel-test="@testPanel.panelName">@testPanel.panelName</option>*@
+                                <option value="@testPanel.panelName">@testPanel.panelName</option>
+                            }
+                        </select>
+                        <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
+                        @*<button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>*@
+                    </div>
+                </form>
+            </td>
+            @*<td>
                 <select id="testMenu" class="selectpicker" multiple>
                     @foreach (var testPanel in Model.testPanelList)
                     {
@@ -66,7 +95,7 @@
                     }
                 </select>
                 <button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>
-            </td>
+            </td>*@
             @*<td>
                     <select id="testMenu" class="selectpicker" multiple>
                         <option id="@nameof(testPanel.CBC).ToString()">CBC</option>
@@ -76,17 +105,38 @@
                     <button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>
                 </td>*@
 
-            }
+            
         </tr>
     }
 </table>
 
 @section scripts
 {
-    <script>
+<script>
 
     $(document).ready(function () {
         $("#aspnetusers").DataTable();
+        var str = "";
+        //var selectedValue = "";
+        //$("select")
+        //    .change(function () {
+        //        //var str = "";
+        //        $("select option:selected").each(function () {
+        //            str = $(this).text();
+        //        });
+        //        //$("div").text(str);
+        //    })
+        //    .change();
+        //function getSelectedValue() {
+
+        //$("#aspnetusers .form-control").on("change", function () {
+
+        //    //var selectedValue = $("#testmenu").value;
+        //    var selectedValue = document.getElementById("testmenu").value;
+        //    console.log(selectedValue);
+        //});
+        //getSelectedValue();
+
         //$.fn.selectpicker.Constructor.BootstrapVersion = '4';
         //$("#testMenu").selectpicker('render');
         //$("#testMenu").selectpicker('refresh');
@@ -96,36 +146,66 @@
 
 
 
-
-        @*$("#aspnetusers .js-order").on("click", function () {
-        var postToAPI = { @Model.orderedTest.test: $(this).attr("data-testpanel-test"), @Model.orderedTest.Id: $(this).attr("data-aspnetuser-id") }
-            if (confirm("Are you sure you want to order these tests?")) {
-                $.ajax({
-                    method: "POST",
-                    data: JSON.stringify(postToAPI),
-                    url: "/api/aspnetusers/" + $(this).attr("data-aspnetuser-id"),
-                    contentType: "application/json",
-
-                    success: function () {
-                        console.log("Success");
-                    }
-                })
-            }
-        });
-
-
         $("#aspnetusers .js-order").on("click", function () {
+        //$("#aspnetusers .js-order").on("click", function () {
+        @*var postToAPI = { @Model.orderedTest.test: $(this).attr("data-testpanel-test"), @Model.orderedTest.Id: $(this).attr("data-aspnetuser-id") }*@
+            //$("#testMenu").selectpicker('refresh');
+            //var postToAPI = { "Id": $(this).attr("data-aspnetuser-id"), "test": $(this).attr("data-testpanel-test") }
+
+            var button = $(this);
+
+            $("select")
+                .change(function () {
+                    //var str = "";
+                    $("select option:selected").each(function () {
+                        str = $(this).text();
+                    });
+                    //$("div").text(str);
+                })
+                .change();
+
+            var testName = $("#testmenu").val("id");
+            var Id = { "Id": button.attr("data-aspnetuser-id") };
+            var test = { "test": str };
+            //var test = { "test": selectedValue };
+            //var test = { "test": getSelectedValue() };
+            //var test = { "test": testName };
+            //var test = { "test": button.attr("data-testpanel-test") };
+
             if (confirm("Are you sure you want to order these tests?")) {
                 $.ajax({
-                    url: "/api/aspnetusers/" + $(this).attr("data-aspnetuser-id"),
-                    method: "PUT",
+                    //method: "CreateOrderedTest",
+                    method: "POST",
+                    //data: JSON.stringify(postToAPI),
+                    //data: { Id = Id, test = test},
+                    data: JSON.stringify({ Id, test }),
+
+
+                    //data: postToAPI,
+                    url: "/api/OrderedTest/",
+                    contentType: "application/json; charset=utf-8",
+                    //contentType: "application/x-www-form-urlencoded",
+                    dataType: 'json',
                     success: function () {
                         console.log("Success");
                     }
                 })
             }
-        });*@
+        });
+
+
+        //$("#aspnetusers .js-order").on("click", function () {
+        //    if (confirm("Are you sure you want to order these tests?")) {
+        //        $.ajax({
+        //            url: "/api/aspnetusers/" + $(this).attr("data-aspnetuser-id"),
+        //            method: "PUT",
+        //            success: function () {
+        //                console.log("Success");
+        //            }
+        //        })
+        //    }
+        //});
 
         });
-    </script>
+</script>
 }

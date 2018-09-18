@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using TestChek.Models;
 using System.Data.Entity;
+using Newtonsoft.Json.Linq;
 
 namespace TestChek.Controllers.Api
 {
@@ -32,11 +33,45 @@ namespace TestChek.Controllers.Api
         }
 
         // POST: api/OrderedTest
+        //public void CreateOrderedTest([FromBody] OrderedTest passedFromAjax)
+        //public void CreateOrderedTest([FromBody] string Id, string test)
+        //public void CreateOrderedTest([FromBody] dynamic jsonFromAjax)
+
         [HttpPost]
-        public void CreateOrderedTest([FromBody] OrderedTest orderedTest)
+        public void Post(JObject objData)
+
+        //public void CreateOrderedTest(OrderedTestViewModel viewModel)
+        //public void CreateOrderedTest(OrderedTest orderedTest)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
+
+            OrderedTest orderedTest = new OrderedTest();
+            dynamic jsonObjData = objData;
+            JObject orderId = jsonObjData.Id;
+            JObject orderTestName = jsonObjData.test;
+            //foreach (var patient in patientlist)
+            //{
+            //    orderedTest.Id = patient.Id;
+            //}
+            var jObjOrderId = orderId.ToString();
+            var jObjOrderTestName = orderTestName.ToString();
+            orderedTest.Id = jObjOrderId;
+            orderedTest.test = jObjOrderTestName;
+            //var testpanel = viewModel.testPanelList;
+            //foreach (var panel in testpanel)
+            //{
+            //    orderedTest.test = panel.panelName;
+            //}
+                
+
+            //var IdFromAjax = jsonFromAjax.Id;
+            //var testFromAjax = jsonFromAjax.test;
+            //OrderedTest orderedTest = new OrderedTest();
+            //orderedTest.Id = IdFromAjax.Id;
+            //orderedTest.test = testFromAjax.test;
+            //orderedTest.Id = Id;
+            //orderedTest.test = test;
 
             _context.OrderedTests.Add(orderedTest);
             _context.SaveChanges();

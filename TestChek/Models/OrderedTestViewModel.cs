@@ -19,7 +19,7 @@ namespace TestChek.Models
         public List<AspNetUser> patientList { get; set; }
         //public List<OrderedTest> pendingTests { get; set; }
         //public List<IEnumerable<TestClass>> TestMenuList { get; set; }
-        public List<List<TestClass>> TestMenuList { get; set; }
+        //public List<List<TestClass>> TestMenuList { get; set; }
         //public TestMenu testMenu { get; set; }
         public List<TestPanel> testPanelList { get; set; }
 

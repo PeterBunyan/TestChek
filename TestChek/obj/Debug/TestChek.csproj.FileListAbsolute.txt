@@ -124,6 +124,10 @@ C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\System.Web.Optimization.
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csproj.CoreCompileInputs.cache
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.dll
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.pdb
-C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csprojResolveAssemblyReference.cache
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.Migrations.InitialMigration.resources
 C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csproj.GenerateResource.Cache
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csprojAssemblyReference.cache
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\obj\Debug\TestChek.csproj.CopyComplete
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Microsoft.AI.PerfCounterCollector.xml
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Microsoft.AI.ServerTelemetryChannel.xml
+C:\Users\Peter\source\repos\TestChekMVCApp\TestChek\bin\Microsoft.ApplicationInsights.xml
