@@ -24,5 +24,11 @@ namespace TestChek.Models
         public List<TestPanel> testPanelList { get; set; }
 
         public OrderedTest orderedTest { get; set; }
+
+        public string CBC { get; set; }
+
+        public string BMP { get; set; }
+
+        public string UA { get; set; }
     }
 }

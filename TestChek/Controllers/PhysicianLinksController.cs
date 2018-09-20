@@ -43,6 +43,9 @@ namespace TestChek.Controllers
 
             //var viewModel = new ViewModel.OrderedTestViewModel();
             var viewModel = new OrderedTestViewModel();
+            viewModel.CBC = "CBC";
+            viewModel.BMP = "BMP";
+            viewModel.UA = "UA";
 
             viewModel.patientList = patients;
             viewModel.testPanelList = testMenu;

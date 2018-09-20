@@ -75,12 +75,14 @@
                 <form action="/" method="post">
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Test Menu</label>
-                        <select class="form-control" id="testMenu" @*onchange="getSelectedValue();"*@>
-                            @foreach (var testPanel in Model.testPanelList)
+                        <select class="form-control js-testMenu" data-aspnetuser-id="@item.Id" id="@item.Id" onchange="selection(this)" @*id="testMenu"*@ @*onchange="run(this.value)"*@>
+                            @*@foreach (var testPanel in Model.testPanelList)
                             {
-                                @*<option data-testpanel-test="@testPanel.panelName">@testPanel.panelName</option>*@
-                                <option value="@testPanel.panelName">@testPanel.panelName</option>
-                            }
+                            @*<option data-testpanel-test="@testPanel.panelName">@testPanel.panelName</option>*@
+                            @*<option value="@testPanel.panelName">@testPanel.panelName</option>*@
+                            <option value="@Model.CBC" @*selected="selected"*@>@Model.CBC</option>
+                            <option value="@Model.BMP">@Model.BMP</option>
+                            <option value="@Model.UA">@Model.UA</option>
                         </select>
                         <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
                         @*<button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>*@
@@ -113,11 +115,71 @@
 @section scripts
 {
 <script>
+    var selectedOption;
+    $("#aspnetusers .js-testMenu").on("change", function () {
+        var object = $(this).attr("id");
+        selectedOption = document.getElementById(object).value;
+        console.log(selectedOption);
+    })
+
+    //I need to find way to incorporate onchange=function(this or this.value) in the select object so that only one test gets ordered
+    var testSelected;
+    //$("#aspnetusers .js-testMenu").on("change", function () {
+    function selection() {
+        var menu = $("#aspnetusers .js-testMenu");
+        //var menu = $(this);
+        var individualMenu = menu.attr("data-aspnetuser-id");
+        var personalMenu = menu.attr("id");
+        //testSelected = document.getElementById(personalMenu).value;
+        var testSelected = this.value;
+        //console.log(testSelected);
+    };
+    //});
+
+
+  //  var newValue;
+  //  $('#testMenu').on('change', function () {
+  //      newValue = this.value;
+  //      //console.log(newValue);
+  //});
+
+    @*var testMenu = document.getElementById("testMenu");
+    var testName = testMenu.options[testMenu.selectedIndex].value;
+    //var selectedTest = document.getElementById("testmenu").val("@Model.CBC");
+    function run() {
+        var updatedValue = document.getElementsByClassName(".js-testMenu").value;
+        var testName = document.getElementById("testMenu").value;
+        console.log(testName);*@
+
+
+        //var testMenu = document.getElementById("testMenu").value;
+
+        //var selectedTest = testName;
+        //var selectedTest = testMenu;
+        //var testMenu = document.getElementById("testMenu");
+    //};
 
     $(document).ready(function () {
         $("#aspnetusers").DataTable();
         var str = "";
-        //var selectedValue = "";
+        //run();
+
+        //$("testMenu").on("change", function () {
+        //    var testName = document.getElementById("testMenu").value;
+        //})
+
+
+        //var selectedValue = document.getElementById("testmenu").val("@Model.CBC");
+
+        //var testMenu = document.getElementById("testMenu").value;
+        //var testName = testMenu.options[testMenu.selectedIndex].value;
+
+        //function run() {
+            
+        //    //var selectedTest = testName;
+        //    var selectedTest = testMenu;
+
+        //}
         //$("select")
         //    .change(function () {
         //        //var str = "";
@@ -154,19 +216,26 @@
 
             var button = $(this);
 
-            $("select")
-                .change(function () {
-                    //var str = "";
-                    $("select option:selected").each(function () {
-                        str = $(this).text();
-                    });
-                    //$("div").text(str);
-                })
-                .change();
+            //$("select")
+            //    .change(function () {
+            //        //var str = "";
+            //        $("select option:selected").each(function () {
+            //            str = $(this).text();
+            //        });
+            //        //$("div").text(str);
+            //    })
+            //    .change();
 
-            var testName = $("#testmenu").val("id");
+            //var testName = $("#testmenu").val("id");
             var Id = { "Id": button.attr("data-aspnetuser-id") };
-            var test = { "test": str };
+            var test = { "test": selectedOption };
+
+            //var test = { "test": testSelected };
+
+            //var test = { "test": testName };
+
+            //var test = { "test": selectedTest };
+            //var test = { "test": str };
             //var test = { "test": selectedValue };
             //var test = { "test": getSelectedValue() };
             //var test = { "test": testName };
