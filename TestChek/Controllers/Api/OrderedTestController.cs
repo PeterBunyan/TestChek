@@ -24,7 +24,6 @@ namespace TestChek.Controllers.Api
 
         // GET: api/OrderedTest/5 - returns pending tests for SINGLE patient
         public IEnumerable<OrderedTest> GetOrderedTest(string id)
-        //public JsonResult GetOrderedTest(string id)
         {
             var orderedTest = _context.OrderedTests.Where(c => c.Id == id);
 
@@ -32,19 +31,12 @@ namespace TestChek.Controllers.Api
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return orderedTest;
-            //return Json(orderedTest.ToList(), JsonRequestBehavior.AllowGet);
         }
 
-        // POST: api/OrderedTest
-        //public void CreateOrderedTest([FromBody] OrderedTest passedFromAjax)
-        //public void CreateOrderedTest([FromBody] string Id, string test)
-        //public void CreateOrderedTest([FromBody] dynamic jsonFromAjax)
-
+        // POST: api/OrderedTest - create OrderedTest object and add to DB
         [HttpPost]
         public void Post(JObject objData)
 
-        //public void CreateOrderedTest(OrderedTestViewModel viewModel)
-        //public void CreateOrderedTest(OrderedTest orderedTest)
         {
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -52,44 +44,7 @@ namespace TestChek.Controllers.Api
             OrderedTest orderedTest = new OrderedTest();
             dynamic jsonObjData = objData;
 
-            JObject orderId = jsonObjData.Id;
-            JObject orderTestName = jsonObjData.test;
-
-            //orderedTest = JsonConvert.DeserializeObject<OrderedTest>(jsonObjData.ToString());
-
-            
-            //var o = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(jsonObjData);
-            //o.Property("Id").Remove();
-            //o.Property("test").Remove();
-
-
-
-
-
-
-            var jObjOrderId = orderId.ToString();
-            var jObjOrderTestName = orderTestName.ToString();
-            orderedTest.Id = jObjOrderId;
-            orderedTest.test = jObjOrderTestName;
-
-            //orderedTest.Id = o.ToString(); ;
-            //orderedTest.test = o.ToString();
-
-
-            //var testpanel = viewModel.testPanelList;
-            //foreach (var panel in testpanel)
-            //{
-            //    orderedTest.test = panel.panelName;
-            //}
-
-
-            //var IdFromAjax = jsonFromAjax.Id;
-            //var testFromAjax = jsonFromAjax.test;
-            //OrderedTest orderedTest = new OrderedTest();
-            //orderedTest.Id = IdFromAjax.Id;
-            //orderedTest.test = testFromAjax.test;
-            //orderedTest.Id = Id;
-            //orderedTest.test = test;
+            orderedTest = JsonConvert.DeserializeObject<OrderedTest>(jsonObjData.ToString());
 
             _context.OrderedTests.Add(orderedTest);
             _context.SaveChanges();
