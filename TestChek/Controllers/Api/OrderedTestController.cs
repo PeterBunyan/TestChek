@@ -7,6 +7,7 @@ using System.Web.Http;
 using TestChek.Models;
 using System.Data.Entity;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace TestChek.Controllers.Api
 {
@@ -23,6 +24,7 @@ namespace TestChek.Controllers.Api
 
         // GET: api/OrderedTest/5 - returns pending tests for SINGLE patient
         public IEnumerable<OrderedTest> GetOrderedTest(string id)
+        //public JsonResult GetOrderedTest(string id)
         {
             var orderedTest = _context.OrderedTests.Where(c => c.Id == id);
 
@@ -30,6 +32,7 @@ namespace TestChek.Controllers.Api
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             return orderedTest;
+            //return Json(orderedTest.ToList(), JsonRequestBehavior.AllowGet);
         }
 
         // POST: api/OrderedTest
@@ -48,22 +51,37 @@ namespace TestChek.Controllers.Api
 
             OrderedTest orderedTest = new OrderedTest();
             dynamic jsonObjData = objData;
+
             JObject orderId = jsonObjData.Id;
             JObject orderTestName = jsonObjData.test;
-            //foreach (var patient in patientlist)
-            //{
-            //    orderedTest.Id = patient.Id;
-            //}
+
+            //orderedTest = JsonConvert.DeserializeObject<OrderedTest>(jsonObjData.ToString());
+
+            
+            //var o = (Newtonsoft.Json.Linq.JObject)JsonConvert.DeserializeObject(jsonObjData);
+            //o.Property("Id").Remove();
+            //o.Property("test").Remove();
+
+
+
+
+
+
             var jObjOrderId = orderId.ToString();
             var jObjOrderTestName = orderTestName.ToString();
             orderedTest.Id = jObjOrderId;
             orderedTest.test = jObjOrderTestName;
+
+            //orderedTest.Id = o.ToString(); ;
+            //orderedTest.test = o.ToString();
+
+
             //var testpanel = viewModel.testPanelList;
             //foreach (var panel in testpanel)
             //{
             //    orderedTest.test = panel.panelName;
             //}
-                
+
 
             //var IdFromAjax = jsonFromAjax.Id;
             //var testFromAjax = jsonFromAjax.test;

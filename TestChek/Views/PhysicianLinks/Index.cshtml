@@ -47,6 +47,7 @@
             @*<th></th>*@
             <th></th>
             <th>Test Menu (choose all that apply)</th>
+            <th>Pending Tests</th>
         </tr>
     </thead>
 
@@ -80,12 +81,23 @@
                             {
                             @*<option data-testpanel-test="@testPanel.panelName">@testPanel.panelName</option>*@
                             @*<option value="@testPanel.panelName">@testPanel.panelName</option>*@
+                            
                             <option value="@Model.CBC" @*selected="selected"*@>@Model.CBC</option>
                             <option value="@Model.BMP">@Model.BMP</option>
                             <option value="@Model.UA">@Model.UA</option>
                         </select>
                         <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
                         @*<button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>*@
+                    </div>
+                </form>
+            </td>
+            <td>
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Pending List</label>
+                        <select class="form-control js-pendingTests" data-aspnetuser-id="@item.Id" id="pending-@item.Id">
+                            <option value="">Test ordered will display here</option>
+                        </select>
                     </div>
                 </form>
             </td>
@@ -116,11 +128,43 @@
 {
 <script>
     var selectedOption;
+    var medRecNumber;
     $("#aspnetusers .js-testMenu").on("change", function () {
         var object = $(this).attr("id");
+        medRecNumber = $(this).attr("data-aspnetuser-id");
         selectedOption = document.getElementById(object).value;
         console.log(selectedOption);
     })
+
+    var pendingOption;
+    var medRecNumberId;
+    var objectId;
+    $("#aspnetusers .js-pendingTests").on("change", function () {
+        objectId = $(this).attr("id");
+        medRecNumberId = $(this).attr("data-aspnetuser-id");        
+        pendingOption = document.getElementById(objectId).value;
+        console.log(pendingOption);
+    })
+
+
+
+    //function OrderedTest(OrderNumber, Id, test) {
+
+
+
+    //function OrderedTest(jsonObject) {
+    //    var Id = jsonObject.Id;
+    //    var OrderNumber = jsonObject.OrderNumber;
+    //    var test = jsonObject.test;
+    //}
+    //$("#aspnetusers .js-testMenu").on("change", GetTestAndMRN(selectedOption, medRecNumber));
+
+    //function GetTestAndMRN(testSelection, mRN) {
+    //    var element = $(this).attr("id");
+    //    mRN = $(this).attr("data-aspnetuser-id");
+    //    testSelection = document.getElementById(element).value;
+    //    console.log(testSelection);
+    //};
 
     //I need to find way to incorporate onchange=function(this or this.value) in the select object so that only one test gets ordered
     var testSelected;
@@ -160,8 +204,49 @@
     //};
 
     $(document).ready(function () {
-        $("#aspnetusers").DataTable();
+        $("#aspnetusers").DataTable({
+            //ajax: {
+            //    url: "/api/OrderedTest/",
+            //    dataSrc: "",
+            //    type: "GET",
+            //    contentType: "application/json; charset=utf-8",
+            //    dataType: "json",
+            //    sAjaxDataProp: "",
+            //},
+            //columns: [
+            //    {
+            //        data: 'OrderNumber',
+            //        //render: function(data) {
+            //        //    for (var i = 0, ien = data.length; i < ien; i++) {
+            //        //        return "<td>" + data.OrderNumber[i] + "</td>";
+            //        //    },
+            //        render: function (data) {
+            //            return "<td>" + data.OrderNumber + "</td>";
+            //        }
+            //    },
+            //    {
+            //        data: 'Id',
+            //        render: function (data) {
+            //            return "<td>" + data.Id + "</td>";
+            //        }
+            //    },
+            //    {
+            //        data: 'test',
+            //        render: function (data) {
+            //            return "<td>" + data.test + "</td>";
+            //        }
+            //    },
+            //]
+        });
         var str = "";
+
+        function OrderedTest(jsonObject) {
+            var Id = jsonObject.Id;
+            var OrderNumber = jsonObject.OrderNumber;
+            var test = jsonObject.test;
+        }
+
+
         //run();
 
         //$("testMenu").on("change", function () {
@@ -175,7 +260,7 @@
         //var testName = testMenu.options[testMenu.selectedIndex].value;
 
         //function run() {
-            
+
         //    //var selectedTest = testName;
         //    var selectedTest = testMenu;
 
@@ -209,7 +294,7 @@
 
 
         $("#aspnetusers .js-order").on("click", function () {
-        //$("#aspnetusers .js-order").on("click", function () {
+            //$("#aspnetusers .js-order").on("click", function () {
         @*var postToAPI = { @Model.orderedTest.test: $(this).attr("data-testpanel-test"), @Model.orderedTest.Id: $(this).attr("data-aspnetuser-id") }*@
             //$("#testMenu").selectpicker('refresh');
             //var postToAPI = { "Id": $(this).attr("data-aspnetuser-id"), "test": $(this).attr("data-testpanel-test") }
@@ -257,6 +342,20 @@
                     dataType: 'json',
                     success: function () {
                         console.log("Success");
+                        $.ajax({
+                            method: "GET",
+                            url: "/api/OrderedTest/" + medRecNumber,
+                            data: {},
+                            success: function (data) {
+                                var numTestsInList = data;
+                                for (index = 0; index < numTestsInList.length; ++index) {
+                                    var object = numTestsInList[index];
+                                    var testObtained = object['test'];
+                                    console.log(testObtained);
+                                    $("#pending-" + medRecNumber).append('<option value="">' + testObtained + '</option>');
+                                }
+                            }
+                        });
                     }
                 })
             }
