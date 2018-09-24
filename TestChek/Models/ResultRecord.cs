@@ -7,11 +7,7 @@ namespace TestChek.Models
 {
     public class ResultRecord: TestClass
     {
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string orderingPhysician { get; set; }
-        public int medRecNumber { get; set; }
-        public DateTime timeofTest { get; set; }
-        public List<TestClass> myTestResults { get; set; }
+        //represents the primary key "Id" from AspNetUsers table, used here as a foreign key for relational purposes
+        public string Id { get; set; }
     }
 }

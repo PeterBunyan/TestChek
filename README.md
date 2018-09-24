@@ -2,7 +2,7 @@
 
 
 # Synopsis
-This is an in-progress ASP.net MVC application. It is designed to simulate a website where users (i.e. patients) can log in and access their medical records as soon as they are completed, 
+This is an in-progress ASP.net MVC and Web API application. It is designed to simulate a website where healthcare providers can order tests on patients and users (i.e. patients) can log in and access their medical records as soon as they are completed, 
 as opposed to waiting for a letter in the mail or a phone call. Additionally, visitors of the website can find resources for learning about specific tests (e.g. the purpose of specific tests and what result values indicate) and laboratory testing, in general.
 
 # Useage
@@ -12,10 +12,10 @@ Additionaly, you may create an account through the "Register" link on the naviga
 
 # Purpose
 As a medical laboratory scientist, I'm familiar with the issues patients and medical providers face when trying to get test results.
-This application is an attempt to solve this issue while also demonstrating a basic understanding of the fundamentals of web development using Asp.net MVC, C#, HTML, CSS, etc.
+This application is an attempt to solve this issue while also demonstrating a basic understanding of the fundamentals of web development using Asp.net MVC and Web API, C#, Javascript, HTML, CSS, etc.
 
 # Contributors
-A combination of the Bootstrap and Asp.net MVC frameworks, along with a navigation bar template from www.bootswatch.com provided the structure of this application, upon which I have added my own code.
+A combination of the Bootstrap, Asp.net MVC, and Asp.net Web API frameworks, along with a navigation bar template from www.bootswatch.com and several third-party libraries, upon which I have added my own code.
 
 # License
 I claim no license over the code contained within the “TestChek” project files.
