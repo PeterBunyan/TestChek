@@ -1,0 +1,248 @@
+﻿@model TestChek.Models.OrderedTestViewModel
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Class = "container body-content";
+
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="aspnetusers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                Last Name
+            </th>
+            <th>
+                First Name
+            </th>
+            <th>
+                Medical Record Number
+            </th>
+            <th>Test Menu (choose all that apply)</th>
+            <th>Pending Tests</th>
+        </tr>
+    </thead>
+
+    @foreach (var item in Model.patientList)
+    {
+    <tr>
+        <td class="lastName">
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td class="firstName">
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td class="aspNetUserId">
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        @*<td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+        </td>*@
+        <td>
+            <form action="/" method="post">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect1">Test Menu</label>
+                    <select class="form-control js-testMenu" data-aspnetuser-id="@item.Id" id="@item.Id">
+                        <option value="@Model.CBC">@Model.CBC</option>
+                        <option value="@Model.BMP">@Model.BMP</option>
+                        <option value="@Model.UA">@Model.UA</option>
+                    </select>
+                    <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
+                </div>
+            </form>
+        </td>
+        <td>
+            <form action="/" method="post">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">Pending List</label>
+                    <select class="form-control js-pendingTests" data-aspnetuser-id="@item.Id" id="pending-@item.Id">
+                        <option value="">Test ordered will display here</option>
+                    </select>
+                </div>
+            </form>
+            <button data-aspnetuser-id="@item.Id" class="btn js-run">Run Now</button>
+            <button data-aspnetuser-id="@item.Id" class="btn js-delete">Delete</button>
+            <button data-aspnetuser-id="@item.Id" class="btn js-completed">@Html.ActionLink("View Results", "MyResults", "MyAccount", new { id = item.Id }, null)</button>
+        </td>
+    </tr>
+    }
+</table>
+
+@section scripts
+{
+<script>
+    var response = {};
+    var selectedOption;
+    var medRecNumber;
+    $("#aspnetusers .js-testMenu").on("change", function () {
+        var object = $(this).attr("id");
+        medRecNumber = $(this).attr("data-aspnetuser-id");
+        selectedOption = document.getElementById(object).value;
+        console.log(selectedOption);
+    })
+
+    var pendingOption;
+    var medRecNumberId;
+    var objectId;
+    $("#aspnetusers .js-pendingTests").on("change", function () {
+        objectId = $(this).attr("id");
+        medRecNumberId = $(this).attr("data-aspnetuser-id");        
+        pendingOption = document.getElementById(objectId).value;
+        console.log(pendingOption);
+    })
+
+
+
+    $(document).ready(function () {
+        $("#aspnetusers").DataTable();
+
+        function OrderedTest(jsonObject) {
+            var Id = jsonObject.Id;
+            var OrderNumber = jsonObject.OrderNumber;
+            var test = jsonObject.test;
+        }
+
+        function AddToPendingList(data) {
+            var numTestsInList = data;
+            for (index = 0; index < numTestsInList.length; ++index) {
+                var object = numTestsInList[index];
+                var testObtained = object['test'];
+                console.log(testObtained);
+                return $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+            }
+        };
+
+        $("#aspnetusers .js-delete").on("click", function () {
+            var button = $(this);
+            var varId = button.attr("data-aspnetuser-id");
+            var vartest = selectedOption;
+            var obj = { Id: varId, test: vartest };
+            var jobj = JSON.stringify(obj);
+
+            if (confirm("Are you sure you want to delete this test?")) {
+                $.ajax({
+                    method: "DELETE",
+                    data: jobj,
+                    url: "/api/OrderedTest/",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function () {
+                        console.log("Deleted");
+                        $.ajax({
+                            method: "GET",
+                            url: "/api/OrderedTest/" + medRecNumber,
+                            data: {},
+                            success: function (data) {
+                                var numTestsInList = data;
+                                $("#pending-" + medRecNumber).children("option").remove();
+                                if (numTestsInList == null)
+                                    console.log("Null");
+                                else if (numTestsInList.length == 0)
+                                    $("#pending-" + medRecNumber).add('<option placeholder="No Tests Ordered"></option>');
+                                else {
+                                    for (index = 0; index < numTestsInList.length; ++index) {
+                                        var object = numTestsInList[index];
+                                        var testObtained = object['test'];
+                                        console.log(testObtained);
+                                        $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+                                    }
+                                }
+
+                            }
+                        });
+                    }
+                })
+            }
+        });
+
+        $("#aspnetusers .js-order").on("click", function () {
+            var button = $(this);
+            var varId = button.attr("data-aspnetuser-id");
+            var vartest = selectedOption;
+            var obj = { Id: varId, test: vartest };
+            var jobj = JSON.stringify(obj);
+
+            if (confirm("Are you sure you want to order this test?")) {
+                $.ajax({
+                    method: "POST",
+                    data: jobj,
+                    url: "/api/OrderedTest/",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: 'json',
+                    success: function () {
+                        console.log("Success");
+                        $.ajax({
+                            method: "GET",
+                            url: "/api/OrderedTest/" + medRecNumber,
+                            data: {},
+                            success: function (data) {
+                                var numTestsInList = data;
+                                $("#pending-" + medRecNumber).children("option").remove();
+                                for (index = 0; index < numTestsInList.length; ++index) {
+                                    var object = numTestsInList[index];
+                                    var testObtained = object['test'];
+                                    console.log(testObtained);
+                                    $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+                                }
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        $("#aspnetusers .js-run").on("click", function () {
+            var button = $(this);
+            var varId = button.attr("data-aspnetuser-id");
+
+            if (confirm("Are you sure you want to run the selected tests?")) {
+                $.ajax({
+                    method: "POST",
+                    url: "/api/OrderedTest/" + medRecNumber,
+                    success: function () {
+                        console.log("Testing completed.");
+                        $.ajax({
+                            method: "PUT",
+                            url: "/api/OrderedTest/" + medRecNumber,
+                            success: function () {
+                                console.log("No tests pending.");
+                                $.ajax({
+                                    method: "GET",
+                                    url: "/api/OrderedTest/" + medRecNumber,
+                                    data: {},
+                                    success: function (data) {
+                                        var numTestsInList = data;
+                                        $("#pending-" + medRecNumber).children("option").remove();
+                                        if (numTestsInList == null)
+                                            console.log("Null");
+                                        else if (numTestsInList.length == 0)
+                                            $("#pending-" + medRecNumber).add('<option placeholder="No Tests Ordered"></option>');
+                                        else {
+                                            for (index = 0; index < numTestsInList.length; ++index) {
+                                                var object = numTestsInList[index];
+                                                var testObtained = object['test'];
+                                                console.log(testObtained);
+                                                $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+                                            }
+                                        }
+
+                                    }
+                                });
+                            }
+                        })
+                    }
+                });
+            }
+        });
+    });
+
+</script>
+}

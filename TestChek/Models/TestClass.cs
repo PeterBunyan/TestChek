@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,34 +8,29 @@ namespace TestChek.Models
 {
     public class TestClass
     {
+        //used to increment 'testId' in constructor every time object is instantiated
+        private static int _IdIncrementer = 0;
+
+        //represents the unique ID of each test ordered (just incremented here for the sake of simplicity)
+        //[Key]
+        public int testId { get; set; }
         //represents the name of a test
-        public string TestName;
+        public string testName { get; set; }
         //represents the result of a test
-        public float Result;
+        public int result { get; set; }
         //represents the minimul value of the test's normal range
-        public float MinReferenceRange;
+        public string minReferenceRange { get; set; }
         //represents the maximum value of the test's normal range
-        public float MaxReferenceRange;
+        public string maxReferenceRange { get; set; }
         //represents the units associated with a test's value
-        public string Units;
+        public string units { get; set; }
+
 
 
         public TestClass()
         {
-            Random testResult = new Random();
-
-            TestName = "WBC";
-            MinReferenceRange = 5.0f;
-            MaxReferenceRange = 10.0f;
-            Result = testResult.Next(5, 10);
-            Units = "x 10^3/uL";
-
-            TestName = "RBC";
-            MinReferenceRange = 3.90f;
-            MaxReferenceRange = 5.10f;
-            Result = testResult.Next(3, 5);
-            Units = "x 10^6/uL";
-    }
+                this.testId = System.Threading.Interlocked.Increment(ref _IdIncrementer);          
+        }
 
         }
 }

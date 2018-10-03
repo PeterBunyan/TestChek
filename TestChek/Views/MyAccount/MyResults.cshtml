@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TestChek.Models.TestClass>
+﻿@model IEnumerable<TestChek.Models.PatientRecord>
 
 @{
     ViewBag.Title = "MyResults";
@@ -8,52 +8,126 @@
 
 <h2>MyResults</h2>
 
+@*<th>
+    @Html.DisplayNameFor(model => model.firstName)
+</th>
+<th>
+    @Html.DisplayNameFor(model => model.lastName)
+</th>
+<th>
+    @Html.DisplayNameFor(model => model.medRecNumber)
+</th>
+<td>
+    @Html.DisplayFor(modelItem => item.firstName)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.lastName)
+</td>
+<td>
+    @Html.DisplayFor(modelItem => item.medRecNumber)
+</td>*@
+
+@if (Model.Count() > 0)
+{
+
 <p>
-    Testing performed on @DateTime.Today.ToShortDateString().
+    @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table id="PatientRecords" class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TestName)
+            @Html.DisplayNameFor(model => model.firstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Result)
+            @Html.DisplayNameFor(model => model.lastName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MinReferenceRange)
+            @Html.DisplayNameFor(model => model.medRecNumber)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.MaxReferenceRange)
+            @Html.DisplayNameFor(model => model.orderingProvider)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Units)
+            @Html.DisplayNameFor(model => model.timeofTest)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.testId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.testName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.result)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.minReferenceRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.maxReferenceRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.units)
+        </th>
+        @*<th></th>*@
     </tr>
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TestName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Result)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MinReferenceRange)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxReferenceRange)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Units)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.medRecNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderingProvider)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.timeofTest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.testId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.testName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.minReferenceRange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.maxReferenceRange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.units)
+            </td>
+            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.medRecNumber }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.medRecNumber }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.medRecNumber })
+                </td>*@
+        </tr>
     }
 
 </table>
+}
+else
+{
+    <H3>No testing completed for this account</H3>
+}
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            $("#PatientRecords").DataTable();
+        });
+    </script>
+}

@@ -1,0 +1,88 @@
+﻿@model IEnumerable<TestChek.Models.AspNetUser>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Class = "container body-content";
+
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="aspnetusers" class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th></th>
+            <th></th>
+            <th>Test Menu (choose all that apply)</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+            <td>
+                <button data-aspnetuser-id="@item.Id" class="btn js-order">Order New Tests</button>
+                <button data-aspnetuser-id="@item.Id" class="btn js-completed">View Completed Tests</button>
+            </td>
+            <td>
+                <select id="testMenu" class="selectpicker" multiple>
+                    <option id="">CBC</option>
+                    <option id="">Basic Met. Panel</option>
+                    <option id="">Urine Screen</option>
+                </select>
+                <button data-aspnetuser-id="@item.Id" class="btn js-order">Order</button>
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            //$("#aspnetusers").DataTable();
+            //$.fn.selectpicker.Constructor.BootstrapVersion = '4';
+            //$("#testMenu").selectpicker('render');
+            //$("#testMenu").selectpicker('refresh');
+            $("#aspnetusers .js-order").on("click", function () {
+                if (confirm("Are you sure you want to order these tests?")) {
+                    $.ajax({
+                        url: "/api/aspnetusers/" + $(this).attr("data-aspnetuser-id"),
+                        method: "PUT",
+                        success: function () {
+                            console.log("Success");
+                        }
+                    })
+                }
+            });
+
+        });
+    </script>
+    }
