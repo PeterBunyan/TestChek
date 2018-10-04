@@ -1,96 +1,90 @@
 ﻿@model IEnumerable<TestChek.Models.PatientRecord>
 
 @{
+    /**/
+
+    /**/
+
     ViewBag.Title = "MyResults";
     ViewBag.Class = "container body-content";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string FirstName = "";
+    string LastName = "";
+    string MedRecNumber = "";
 }
 
 <h2>MyResults</h2>
 
-@*<th>
-    @Html.DisplayNameFor(model => model.firstName)
-</th>
-<th>
-    @Html.DisplayNameFor(model => model.lastName)
-</th>
-<th>
-    @Html.DisplayNameFor(model => model.medRecNumber)
-</th>
-<td>
-    @Html.DisplayFor(modelItem => item.firstName)
-</td>
-<td>
-    @Html.DisplayFor(modelItem => item.lastName)
-</td>
-<td>
-    @Html.DisplayFor(modelItem => item.medRecNumber)
-</td>*@
+
 
 @if (Model.Count() > 0)
 {
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table id="PatientRecords" class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.firstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.medRecNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.orderingProvider)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.timeofTest)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.testId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.testName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.result)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.minReferenceRange)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.maxReferenceRange)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.units)
-        </th>
-        @*<th></th>*@
-    </tr>
 
-    @foreach (var item in Model)
+
+
+    foreach (var item in Model)
     {
+
+        if ((FirstName != item.firstName) && (LastName != item.lastName) && (MedRecNumber != item.medRecNumber))
+        {
+            @*@Html.DisplayFor(modelItem => item.firstName)
+            @Html.DisplayFor(modelItem => item.lastName)
+            @Html.DisplayFor(modelItem => item.medRecNumber)*@
+            FirstName = item.firstName;
+            LastName = item.lastName;
+            MedRecNumber = item.medRecNumber;
+        }
+        //FirstName = item.firstName;
+        //LastName = item.lastName;
+        //MedRecNumber = item.medRecNumber;
+    }
+    <p></p>
+    <H3>Last Name: @LastName</H3>
+    <H3>First Name: @FirstName</H3>
+    <H3>Medical Record Number: @MedRecNumber</H3>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table id="PatientRecords" class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.timeofTest)*@
+                Time of Test
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.testName)*@
+                Test Name
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.result)*@
+                Result
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.minReferenceRange)*@
+                Reference Range Min.
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.maxReferenceRange)*@
+                Reference Range Max.
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.units)*@
+                Units
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.orderingProvider)*@
+                Ordering Provider
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.firstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.medRecNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.orderingProvider)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.timeofTest)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.testId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.testName)
@@ -107,19 +101,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.units)
             </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderingProvider)
+            </td>
             @*<td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.medRecNumber }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.medRecNumber }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.medRecNumber })
-                </td>*@
+            @Html.ActionLink("Edit", "Edit", new { id = item.medRecNumber }) |
+            @Html.ActionLink("Details", "Details", new { id = item.medRecNumber }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.medRecNumber })
+        </td>*@
         </tr>
-    }
+        }
 
-</table>
+    </table>
 }
+
 else
 {
-    <H3>No testing completed for this account</H3>
+    <H3>No testing completed for this account.</H3>
 }
 
 @section scripts

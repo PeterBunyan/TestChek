@@ -9,9 +9,7 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<p></p>
 <table id="aspnetusers" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -51,13 +49,15 @@
                 <div class="form-group">
                     <label for="exampleFormControlSelect1">Test Menu</label>
                     <select class="form-control js-testMenu" data-aspnetuser-id="@item.Id" id="@item.Id">
+                        <option value="null">Select Test</option>
                         <option value="@Model.CBC">@Model.CBC</option>
                         <option value="@Model.BMP">@Model.BMP</option>
                         <option value="@Model.UA">@Model.UA</option>
                     </select>
-                    <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
+                    @*<input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />*@
                 </div>
             </form>
+            <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
         </td>
         <td>
             <form action="/" method="post">

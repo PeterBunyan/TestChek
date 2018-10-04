@@ -7,7 +7,7 @@ using TestChek.Models;
 
 namespace TestChek.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = Roles.CanViewOrOrderTests)]
     public class MyAccountController : Controller
     {
         private ModelDBContext _context;

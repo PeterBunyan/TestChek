@@ -239,6 +239,7 @@
     <Compile Include="Models\PatientRecord.cs" />
     <Compile Include="Models\ResultRecordTable.cs" />
     <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\RunTests.cs" />
     <Compile Include="Models\TestClass.cs" />
     <Compile Include="Models\TestMenu.cs" />

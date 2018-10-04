@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 
 namespace TestChek.Controllers
 {
+    [Authorize(Roles = Roles.CanOrderTests)]
     public class PhysicianLinksController : Controller
     {
         private ModelDBContext _context;

@@ -82,7 +82,7 @@ namespace TestChek.Controllers.Api
             }
 
             record.myTestResults = builtList;
-
+            var orderingProvider = _context.AspNetUsers.Single(c => c.UserName == User.Identity.Name);
             foreach (var panel in record.myTestResults)
             {
                 foreach (var test in panel)
@@ -90,8 +90,9 @@ namespace TestChek.Controllers.Api
                     record.firstName = aspNetUser.FirstName;
                     record.lastName = aspNetUser.LastName;
                     record.medRecNumber = aspNetUser.Id;
-                    record.orderingProvider = "Dr. Johnson";
-                    record.timeofTest = DateTime.Now.ToShortDateString();
+                    record.orderingProvider = orderingProvider.LastName + ", " + orderingProvider.FirstName;
+                    //record.orderingProvider = User.Identity.Name;
+                    record.timeofTest = DateTime.Now.ToString("g");
                     record.testName = test.testName;
                     record.result = test.result;
                     record.minReferenceRange = test.minReferenceRange;
