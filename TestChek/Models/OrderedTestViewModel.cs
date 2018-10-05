@@ -9,26 +9,16 @@ namespace TestChek.Models
 {
     public class OrderedTestViewModel
     {
-        //[Key]
-        //[NotMapped]
+        //Primary Key, though model does not currently exist in DB
         [Key]
         public int Id { get; set; }
-        //[NotMapped]
-        //public int OTVMId { get; set; }
-
+        //Stores a list of AspNetUser, a list of "patients" that registered for site access
         public List<AspNetUser> patientList { get; set; }
-        //public List<OrderedTest> pendingTests { get; set; }
-        //public List<IEnumerable<TestClass>> TestMenuList { get; set; }
-        //public List<List<TestClass>> TestMenuList { get; set; }
-        //public TestMenu testMenu { get; set; }
-        public List<TestPanel> testPanelList { get; set; }
-
-        public OrderedTest orderedTest { get; set; }
-
+        //Test in Drop-down menu of view
         public string CBC { get; set; }
-
+        //Test in Drop-down menu of view
         public string BMP { get; set; }
-
+        //Test in Drop-down menu of view
         public string UA { get; set; }
     }
 }

@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using TestChek.Models;
 using System.Data.SqlClient;
-//using TestChek.ViewModel;
 
 namespace TestChek.Controllers
 {
+    //Only providers can access this portion of the site
     [Authorize(Roles = Roles.CanOrderTests)]
     public class PhysicianLinksController : Controller
     {
@@ -21,28 +21,16 @@ namespace TestChek.Controllers
         // GET: PhysicianLinks
         public ActionResult Index()
         {
-
+            //populate list of AspNetUsers to supply to ViewModel for display
             var patients = _context.AspNetUsers.ToList();
-
-            var testMenu = new List<TestPanel>();
-            var panelCBC = new TestPanel();
-            var panelBMP = new TestPanel();
-            var panelUA = new TestPanel();
-            panelCBC.panelName = "CBC";
-            panelBMP.panelName = "BMP";
-            panelUA.panelName = "UA";
-            testMenu.Add(panelCBC);
-            testMenu.Add(panelBMP);
-            testMenu.Add(panelUA);
-
             var viewModel = new OrderedTestViewModel();
+
+            //Tests used to populate test menu list in Index view
             viewModel.CBC = "CBC";
             viewModel.BMP = "BMP";
             viewModel.UA = "UA";
 
             viewModel.patientList = patients;
-            viewModel.testPanelList = testMenu;
-
 
             return View(viewModel);
         }

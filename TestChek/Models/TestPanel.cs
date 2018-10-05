@@ -6,9 +6,7 @@ using System.Web;
 
 namespace TestChek.Models
 {
-    //the problem I'm having with two models in one view may partially be due to the way I have this class designed.
-    //instead of having each panel be a separate property, I should abstract things down to the essence of a panel - a list<TestClass> and maybe a string property to hold the panel name.
-    //maybe have each panel be a constructor that passes in a value (CBC, BMP, etc.)
+
     public class TestPanel
     {
         [Key]
@@ -17,42 +15,15 @@ namespace TestChek.Models
         //public int testPanelId { get { return _testPanelId; } }
 
         private List<TestClass> _panelTestList; /*{ get; set; }*/
-        //testResult used to generate random results to simulate different patients
-        //Random testResult = new Random(Guid.NewGuid().GetHashCode());
+        //testResult used to generate random results to simulate different test result values
         private Random _resultRandom = new Random(Guid.NewGuid().GetHashCode());
+        //returns result from backing variable
         public Random testResult { get { return _resultRandom; } }
         public string panelName { get; set; }
 
         //can i have this list take in a string parameter to dictate the panel that gets seelcted?
-        public List<TestClass> panelTestList
-        {
+        public List<TestClass> panelTestList { get { return _panelTestList; } }
 
-            //eventually, assign this logic to private variable and remove here.
-            //private set
-            //{
-            //    if (panelName == "CBC")
-            //    {
-            //        _panelTestList = CBC();
-            //        _testPanelId = 1;
-            //    }
-            //    else if (panelName == "BMP")
-            //    {
-            //        _panelTestList = BasicMetPanel();
-            //        _testPanelId = 2;
-            //    }
-            //    else if (panelName == "UA")
-            //    {
-            //        _panelTestList = UrineScreen();
-            //        _testPanelId = 3;
-            //    }
-            //    else
-            //        throw new Exception("Test Panel spelled incorrectly or does not exist. Try 'CBC', 'BMP', or 'UA'.");
-            //}
-            get
-            {
-                return _panelTestList;
-            }
-        }
 
         public void testSelector(string testName)
         {
@@ -77,38 +48,8 @@ namespace TestChek.Models
             }
         }
 
-        //public List<TestClass> panelTestList
-        //{
-        //    get
-        //    {
-        //        return _panelTestList;
-        //    }
-        //    //eventually, assign this logic to private variable and remove here.
-        //    set
-        //    {
-        //        if (panelName == "CBC")
-        //        {
-        //            _panelTestList = CBC();
-        //            _testPanelId = 1;
-        //        }
-        //        else if (panelName == "BMP")
-        //        {
-        //            _panelTestList = BasicMetPanel();
-        //            _testPanelId = 2;
-        //        }
-        //        else if (panelName == "UA")
-        //        {
-        //            _panelTestList = UrineScreen();
-        //            _testPanelId = 3;
-        //        }
-        //        else
-        //            throw new Exception("Test Panel spelled incorrectly or does not exist. Try 'CBC', 'BMP', or 'UA'.");
-        //    }
-        //}
 
-
-
-        public List<TestClass> CBC()
+        private List<TestClass> CBC()
         {
             //testResult used to generate random results to simulate different patients
             //Random testResult = new Random(Guid.NewGuid().GetHashCode());
@@ -123,7 +64,7 @@ namespace TestChek.Models
                 };
         }
 
-        public List<TestClass> BasicMetPanel()
+        private List<TestClass> BasicMetPanel()
         {
             //testResult used to generate random results to simulate different patients
             //Random testResult = new Random(Guid.NewGuid().GetHashCode());
@@ -140,7 +81,7 @@ namespace TestChek.Models
                 };
         }
 
-        public List<TestClass> UrineScreen()
+        private List<TestClass> UrineScreen()
         {
             //testResult used to generate random results to simulate different patients
             //Random testResult = new Random(Guid.NewGuid().GetHashCode());
@@ -164,28 +105,28 @@ namespace TestChek.Models
 
         }
 
-        public TestPanel(string testName)
-        {
-            {
-                if (testName == "CBC")
-                {
-                    _panelTestList = CBC();
-                    _testPanelId = 1;
-                }
-                else if (testName == "BMP")
-                {
-                    _panelTestList = BasicMetPanel();
-                    _testPanelId = 2;
-                }
-                else if (testName == "UA")
-                {
-                    _panelTestList = UrineScreen();
-                    _testPanelId = 3;
-                }
-                else
-                    throw new Exception("Test Panel spelled incorrectly or does not exist. Try 'CBC', 'BMP', or 'UA'.");
-            }
-        }
+        //public TestPanel(string testName)
+        //{
+        //    {
+        //        if (testName == "CBC")
+        //        {
+        //            _panelTestList = CBC();
+        //            _testPanelId = 1;
+        //        }
+        //        else if (testName == "BMP")
+        //        {
+        //            _panelTestList = BasicMetPanel();
+        //            _testPanelId = 2;
+        //        }
+        //        else if (testName == "UA")
+        //        {
+        //            _panelTestList = UrineScreen();
+        //            _testPanelId = 3;
+        //        }
+        //        else
+        //            throw new Exception("Test Panel spelled incorrectly or does not exist. Try 'CBC', 'BMP', or 'UA'.");
+        //    }
+        //}
     }
 
 }

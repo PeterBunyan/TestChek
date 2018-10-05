@@ -228,7 +228,6 @@
     <Compile Include="Models\AspNetUserClaim.cs" />
     <Compile Include="Models\AspNetUserLogin.cs" />
     <Compile Include="Models\AspNetUsersList.cs" />
-    <Compile Include="Models\CompMetPanel.cs" />
     <Compile Include="Models\FAQ.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -237,12 +236,8 @@
     <Compile Include="Models\OrderedTest.cs" />
     <Compile Include="Models\OrderedTestViewModel.cs" />
     <Compile Include="Models\PatientRecord.cs" />
-    <Compile Include="Models\ResultRecordTable.cs" />
-    <Compile Include="Models\RoleName.cs" />
     <Compile Include="Models\Roles.cs" />
-    <Compile Include="Models\RunTests.cs" />
     <Compile Include="Models\TestClass.cs" />
-    <Compile Include="Models\TestMenu.cs" />
     <Compile Include="Models\TestPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

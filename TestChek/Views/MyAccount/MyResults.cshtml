@@ -29,25 +29,19 @@
 
         if ((FirstName != item.firstName) && (LastName != item.lastName) && (MedRecNumber != item.medRecNumber))
         {
-            @*@Html.DisplayFor(modelItem => item.firstName)
-            @Html.DisplayFor(modelItem => item.lastName)
-            @Html.DisplayFor(modelItem => item.medRecNumber)*@
+
             FirstName = item.firstName;
             LastName = item.lastName;
             MedRecNumber = item.medRecNumber;
         }
-        //FirstName = item.firstName;
-        //LastName = item.lastName;
-        //MedRecNumber = item.medRecNumber;
+
     }
     <p></p>
     <H3>Last Name: @LastName</H3>
     <H3>First Name: @FirstName</H3>
     <H3>Medical Record Number: @MedRecNumber</H3>
 
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
+    <p></p>
     <table id="PatientRecords" class="table table-bordered table-hover">
         <tr>
             <th>
@@ -104,11 +98,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.orderingProvider)
             </td>
-            @*<td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.medRecNumber }) |
-            @Html.ActionLink("Details", "Details", new { id = item.medRecNumber }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.medRecNumber })
-        </td>*@
         </tr>
         }
 
