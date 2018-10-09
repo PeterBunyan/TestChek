@@ -227,6 +227,7 @@
     <Compile Include="Models\AspNetUser.cs" />
     <Compile Include="Models\AspNetUserClaim.cs" />
     <Compile Include="Models\AspNetUserLogin.cs" />
+    <Compile Include="Models\AspNetUserRole.cs" />
     <Compile Include="Models\AspNetUsersList.cs" />
     <Compile Include="Models\FAQ.cs" />
     <Compile Include="Models\IdentityModels.cs" />

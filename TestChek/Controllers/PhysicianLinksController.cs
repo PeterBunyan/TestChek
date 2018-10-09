@@ -21,8 +21,14 @@ namespace TestChek.Controllers
         // GET: PhysicianLinks
         public ActionResult Index()
         {
+            ViewBag.Message = "";
             //populate list of AspNetUsers to supply to ViewModel for display
             var patients = _context.AspNetUsers.ToList();
+            //var AuthUsers = from aspNetUser in _context.AspNetUsers
+            //                join userinroles in _context.AspNetUserRoles on aspNetUser.Id equals userinroles.UserId
+            //                where userinroles.RoleId = 1
+            //                //&& userinroles.RoleId == 
+            //                select aspNetUser;
             var viewModel = new OrderedTestViewModel();
 
             //Tests used to populate test menu list in Index view
@@ -31,7 +37,7 @@ namespace TestChek.Controllers
             viewModel.UA = "UA";
 
             viewModel.patientList = patients;
-
+            
             return View(viewModel);
         }
     }

@@ -23,10 +23,10 @@ namespace TestChek.Models
             public virtual DbSet<PatientRecord> PatientRecords { get; set; }
             public virtual DbSet<OrderedTest> OrderedTests { get; set; }
             public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+            //public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
             public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
             public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
             public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-
 
 
 

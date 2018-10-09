@@ -8,6 +8,8 @@ using TestChek.Models;
 using System.Data.Entity;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using TestChek.Controllers;
+
 
 namespace TestChek.Controllers.Api
 {
@@ -135,11 +137,13 @@ namespace TestChek.Controllers.Api
 
             orderedTest = JsonConvert.DeserializeObject<OrderedTest>(jsonObjData.ToString());
 
-            var orderedTestInDB = _context.OrderedTests.FirstOrDefault(c => c.Id == orderedTest.Id && c.test == orderedTest.test);
-
+            var orderedTestInDB = _context.OrderedTests.First(c => c.Id == orderedTest.Id && c.test == orderedTest.test);
+            
             if (orderedTestInDB == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            {
 
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
             _context.OrderedTests.Remove(orderedTestInDB);
             _context.SaveChanges();
         }

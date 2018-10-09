@@ -9,22 +9,21 @@ namespace TestChek.Models
 
     public class TestPanel
     {
+        //primary key, though not currently implemented in DB
         [Key]
         public int _testPanelId { get; set; }
-        //private int _testPanelId;
-        //public int testPanelId { get { return _testPanelId; } }
 
         private List<TestClass> _panelTestList; /*{ get; set; }*/
         //testResult used to generate random results to simulate different test result values
         private Random _resultRandom = new Random(Guid.NewGuid().GetHashCode());
         //returns result from backing variable
         public Random testResult { get { return _resultRandom; } }
+        //test panel name
         public string panelName { get; set; }
-
-        //can i have this list take in a string parameter to dictate the panel that gets seelcted?
+        //returns a list of tests
         public List<TestClass> panelTestList { get { return _panelTestList; } }
 
-
+        //useage: takes string as input and assigns matching test panel to a list
         public void testSelector(string testName)
         {
             {
@@ -45,15 +44,13 @@ namespace TestChek.Models
                 }
                 else
                     throw new Exception("Test Panel spelled incorrectly or does not exist. Try 'CBC', 'BMP', or 'UA'.");
+                //return View(viewModel);
             }
         }
 
-
+        //list representing a test panel
         private List<TestClass> CBC()
         {
-            //testResult used to generate random results to simulate different patients
-            //Random testResult = new Random(Guid.NewGuid().GetHashCode());
-            //return new List<TestClass>
             return new List<TestClass>
                 {
                 new TestClass { testName = "WBC", result = (testResult.Next(200, 1800) / 100), minReferenceRange = "5.0", maxReferenceRange = "10.0", units = "x 10^3/uL"},
@@ -63,11 +60,9 @@ namespace TestChek.Models
                 new TestClass { testName = "PLT", result = (testResult.Next(900, 6010) / 10), minReferenceRange = "160.0", maxReferenceRange = "401.0", units = "x 10^3/uL" }
                 };
         }
-
+        //list representing a test panel
         private List<TestClass> BasicMetPanel()
         {
-            //testResult used to generate random results to simulate different patients
-            //Random testResult = new Random(Guid.NewGuid().GetHashCode());
             return new List<TestClass>
                 {
                 new TestClass { testName = "Sodium", result = (testResult.Next(12000, 15500) / 100), minReferenceRange = "135.0", maxReferenceRange = "146.0", units = "MMOL/L"},
@@ -80,11 +75,9 @@ namespace TestChek.Models
                 new TestClass { testName = "Calcium", result = (testResult.Next(800, 1100) / 100), minReferenceRange = "8.5", maxReferenceRange = "10.1", units = "MG/DL" }
                 };
         }
-
+        //list representing a test panel
         private List<TestClass> UrineScreen()
         {
-            //testResult used to generate random results to simulate different patients
-            //Random testResult = new Random(Guid.NewGuid().GetHashCode());
             return new List<TestClass>
                 {
                 new TestClass { testName = "Glucose", result = (testResult.Next(0, 100) / 100), minReferenceRange = "0.0", maxReferenceRange = "1.0", units = "MG/DL"},
@@ -97,36 +90,12 @@ namespace TestChek.Models
                 new TestClass { testName = "Urobilinogen", result = (testResult.Next(800, 1100) / 100), minReferenceRange = "0.0", maxReferenceRange = "1.0", units = "EU/DL" },
                 new TestClass { testName = "Nitrite", result = (testResult.Next(0, 100) / 100), minReferenceRange = "0.0", maxReferenceRange = "1.0", units = "N/A" },
                 new TestClass { testName = "Leukocyte Esterase", result = (testResult.Next(0, 300) / 100), minReferenceRange = "0.0", maxReferenceRange = "3.0", units = "N/A" }
-
             };
         }
         public TestPanel()
         {
 
         }
-
-        //public TestPanel(string testName)
-        //{
-        //    {
-        //        if (testName == "CBC")
-        //        {
-        //            _panelTestList = CBC();
-        //            _testPanelId = 1;
-        //        }
-        //        else if (testName == "BMP")
-        //        {
-        //            _panelTestList = BasicMetPanel();
-        //            _testPanelId = 2;
-        //        }
-        //        else if (testName == "UA")
-        //        {
-        //            _panelTestList = UrineScreen();
-        //            _testPanelId = 3;
-        //        }
-        //        else
-        //            throw new Exception("Test Panel spelled incorrectly or does not exist. Try 'CBC', 'BMP', or 'UA'.");
-        //    }
-        //}
     }
 
 }
