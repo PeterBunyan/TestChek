@@ -7,6 +7,10 @@ as opposed to waiting for a letter in the mail or a phone call. Additionally, vi
 
 # Useage
 Download the zip file and, after unzipping, open the solution file in Microsoft Visual Studio. Open the "Web.config" file and, within the "Data Source=" section of "ConnectionStrings", change the two instances of "YourServerName" to the appropriate server name where you intend to store the accompanying SQL database file that is included with this project.
+SQL Server Authentication was set up using the following:
+Username: TestChekSimulator
+Password: Admin
+
 In Microsoft SQL Server Management Studio, right click on the "Databases" tab (the child of your Server) and select "Restore Database". In the pop-up window, under "Source", change the selected option from "Database" to "Device" and select the file path for the included database .bak file.
 Build ("Ctrl"+"Shift"+"B") and run the application.
 This should open your web browser and direct you to the "Welcome" page of the website. Browse the "F.A.Q." or "About Us" sections for information about laboratory testing or the TestChek company.
