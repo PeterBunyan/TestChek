@@ -679,7 +679,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\MyAccount\Index.cshtml" />
-    <Content Include="Views\MyAccount\PayMyBill.cshtml" />
     <Content Include="Views\Home\IndexProvider.cshtml" />
     <Content Include="Views\AspNetUsers\Create.cshtml" />
     <Content Include="Views\AspNetUsers\Delete.cshtml" />

@@ -77,6 +77,7 @@ namespace TestChek.Controllers.Api
             TestPanel pendingList = new TestPanel();
             List<List<TestClass>> builtList = new List<List<TestClass>>();
 
+            //For each test panel name (order) in orderedTestList, add the associated panel to builtList
             foreach (var order in orderedTestList)
             {
                 pendingList.testSelector(order.test);
@@ -84,16 +85,20 @@ namespace TestChek.Controllers.Api
             }
 
             record.myTestResults = builtList;
+
+            //gets provider currently logged in
             var orderingProvider = _context.AspNetUsers.Single(c => c.UserName == User.Identity.Name);
+
+            //For each test panel
             foreach (var panel in record.myTestResults)
             {
+                //create a PatientRecord object for each test in the test panel and save to DB
                 foreach (var test in panel)
                 {
                     record.firstName = aspNetUser.FirstName;
                     record.lastName = aspNetUser.LastName;
                     record.medRecNumber = aspNetUser.Id;
                     record.orderingProvider = orderingProvider.LastName + ", " + orderingProvider.FirstName;
-                    //record.orderingProvider = User.Identity.Name;
                     record.timeofTest = DateTime.Now.ToString("g");
                     record.testName = test.testName;
                     record.result = test.result;
@@ -115,11 +120,13 @@ namespace TestChek.Controllers.Api
             if (!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
+            //Find records for one patient
             var orderedTestsInDB = _context.OrderedTests.Where(c => c.Id == id);
 
             if (orderedTestsInDB == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
+            //Delete each record
             foreach (var pendingTest in orderedTestsInDB)
             {
                 _context.OrderedTests.Remove(pendingTest);
@@ -128,22 +135,25 @@ namespace TestChek.Controllers.Api
         }
 
 
-        // DELETE: api/OrderedTest/
+        // DELETE: api/OrderedTest/ - delete specific instance of OrderedTest in DB
         [HttpDelete]
         public void DeleteOrderedTest(JObject objData)
         {
             OrderedTest orderedTest = new OrderedTest();
             dynamic jsonObjData = objData;
 
+            //converts json object to OrderedTest object
             orderedTest = JsonConvert.DeserializeObject<OrderedTest>(jsonObjData.ToString());
 
             var orderedTestInDB = _context.OrderedTests.First(c => c.Id == orderedTest.Id && c.test == orderedTest.test);
             
+            //if test exists in DB
             if (orderedTestInDB == null)
             {
 
                 throw new HttpResponseException(HttpStatusCode.NotFound);
             }
+            //delete test
             _context.OrderedTests.Remove(orderedTestInDB);
             _context.SaveChanges();
         }

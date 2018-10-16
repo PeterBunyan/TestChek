@@ -23,12 +23,12 @@ namespace TestChek.Controllers
         {
             ViewBag.Message = "";
             //populate list of AspNetUsers to supply to ViewModel for display
-            var patients = _context.AspNetUsers.ToList();
-            //var AuthUsers = from aspNetUser in _context.AspNetUsers
-            //                join userinroles in _context.AspNetUserRoles on aspNetUser.Id equals userinroles.UserId
-            //                where userinroles.RoleId = 1
-            //                //&& userinroles.RoleId == 
-            //                select aspNetUser;
+            //var patients = _context.AspNetUsers.ToList();
+            var AuthUsers = from aspNetUser in _context.AspNetUsers
+                            join userinroles in _context.AspNetUserRoles on aspNetUser.Id equals userinroles.UserId
+                            where userinroles.RoleId == "1"
+                            select aspNetUser;
+            AuthUsers = AuthUsers.OrderBy(x => x.LastName);
             var viewModel = new OrderedTestViewModel();
 
             //Tests used to populate test menu list in Index view
@@ -36,8 +36,9 @@ namespace TestChek.Controllers
             viewModel.BMP = "BMP";
             viewModel.UA = "UA";
 
-            viewModel.patientList = patients;
-            
+            //viewModel.patientList = patients;
+            viewModel.patientList = AuthUsers.ToList();
+
             return View(viewModel);
         }
     }
