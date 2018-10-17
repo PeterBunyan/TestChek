@@ -7,11 +7,18 @@
 
 }
 
+<<<<<<< HEAD
 <h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+=======
+<h2>Provider Portal</h2>
+
+<p></p>
+@*table for displaying list of registered patients with a test menu available for each*@
+>>>>>>> API
 <table id="aspnetusers" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -24,11 +31,15 @@
             <th>
                 Medical Record Number
             </th>
+<<<<<<< HEAD
             <th></th>
+=======
+>>>>>>> API
             <th>Test Menu (choose all that apply)</th>
             <th>Pending Tests</th>
         </tr>
     </thead>
+<<<<<<< HEAD
 
     @foreach (var item in Model.patientList)
     {
@@ -56,10 +67,33 @@
                     <div class="form-group">
                         <label for="exampleFormControlSelect1">Test Menu</label>
                         <select class="form-control js-testMenu" data-aspnetuser-id="@item.Id" id="@item.Id" onchange="selection(this)">
+=======
+    @*for each patient in the list (i.e. each user from AspNetUsers DB table in role "CanViewOwnTests")*@
+    @foreach (var item in Model.patientList)
+    {
+        <tr>
+            <td class="lastName">
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td class="firstName">
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td class="aspNetUserId">
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @*test menu for ordering tests*@
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect1">Test Menu</label>
+                        <select class="form-control js-testMenu" data-aspnetuser-id="@item.Id" id="@item.Id">
+                            <option value="" disabled selected>Select Test</option>
+>>>>>>> API
                             <option value="@Model.CBC">@Model.CBC</option>
                             <option value="@Model.BMP">@Model.BMP</option>
                             <option value="@Model.UA">@Model.UA</option>
                         </select>
+<<<<<<< HEAD
                         <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
                     </div>
                 </form>
@@ -73,6 +107,23 @@
                         </select>
                     </div>
                 </form>
+=======
+                    </div>
+                </form>
+                <input data-aspnetuser-id="@item.Id" class="btn js-order" type="button" id="btnOrder" value="Order Test" />
+            </td>
+            <td>
+                @*displays list of pending tests that were ordered from the test menu*@
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Pending List</label>
+                        <select class="form-control js-pendingTests" data-aspnetuser-id="@item.Id" id="pending-@item.Id"></select>
+                    </div>
+                </form>
+                <button data-aspnetuser-id="@item.Id" class="btn js-run">Run Now</button>
+                <button data-aspnetuser-id="@item.Id" class="btn js-delete">Delete</button>
+                <button data-aspnetuser-id="@item.Id" class="btn js-completed">@Html.ActionLink("View Results", "MyResults", "MyAccount", new { id = item.Id }, null)</button>
+>>>>>>> API
             </td>
         </tr>
     }
@@ -81,6 +132,7 @@
 @section scripts
 {
 <script>
+<<<<<<< HEAD
     var selectedOption;
     var medRecNumber;
     $("#aspnetusers .js-testMenu").on("change", function () {
@@ -101,6 +153,42 @@
     })
 
     $(document).ready(function () {
+=======
+    //stores test panel chosen from test menu
+    var selectedOption;
+    //stores medRecNumber (AspNetUserId) of patient that test was ordered for
+    var medRecNumber;
+    //function for capturing test panel name and medRecNumber when a selection is made
+    $("#aspnetusers .js-testMenu").on("change", function () {
+        var object = $(this).attr("id");
+        medRecNumber = $(this).attr("data-aspnetuser-id");
+        if (document.getElementById(object).value != null) {
+            selectedOption = document.getElementById(object).value;
+        }
+        console.log(selectedOption);
+    })
+
+    //stores test panel chosen from pending list
+    var pendingOption;
+    //stores medRecNumber (AspNetUserId) of patient that test was ordered for
+    var medRecNumberId;
+    //stores value of medRecNumber (AspNetUserId)
+    var objectId;
+    //function for capturing test panel name and medRecNumber when a selection is made from pending list
+    $("#aspnetusers .js-pendingTests").on("change", function () {
+        objectId = $(this).attr("id");
+        medRecNumberId = $(this).attr("data-aspnetuser-id");   
+        if (document.getElementById(objectId).value != null) {
+            pendingOption = document.getElementById(objectId).value;
+        }
+        console.log(pendingOption);
+    })
+
+
+
+    $(document).ready(function () {
+        //adds DataTable styling (search bar, sorting, pagination) to table of patients displayed
+>>>>>>> API
         $("#aspnetusers").DataTable();
 
         function OrderedTest(jsonObject) {
@@ -109,12 +197,83 @@
             var test = jsonObject.test;
         }
 
+<<<<<<< HEAD
+=======
+        function AddToPendingList(data) {
+            var numTestsInList = data;
+            for (index = 0; index < numTestsInList.length; ++index) {
+                var object = numTestsInList[index];
+                var testObtained = object['test'];
+                console.log(testObtained);
+                return $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+            }
+        };
+
+        //Event handler for sending "Delete" request (of a test panel) to the API
+        $("#aspnetusers .js-delete").on("click", function () {
+            var button = $(this);
+            var varId = button.attr("data-aspnetuser-id");
+            var parentTD = button.parent("td");
+            var pendingDropDown = parentTD.find("select");
+            var testCount = pendingDropDown.find("option").length;
+            //If the pending list is not empty
+            if (testCount > 0) {
+                var vartest = selectedOption;
+                //begin formatting test panel name and medRecNumber in json format
+                var obj = { Id: varId, test: vartest };
+                var jobj = JSON.stringify(obj);
+                //If confirmation box is clicked "ok", make API call
+                if (confirm("Are you sure you want to delete this test?")) {
+                    $.ajax({
+                        method: "DELETE",
+                        data: jobj,
+                        url: "/api/OrderedTest/",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        success: function () {
+                            console.log("Deleted");
+                            //"Get" call is made here to "refresh" the list of pending tests
+                            $.ajax({
+                                method: "GET",
+                                url: "/api/OrderedTest/" + medRecNumber,
+                                data: {},
+                                success: function (data) {
+                                    //store data returned from "Get" call to API
+                                    var numTestsInList = data;
+                                    //remove items from pending list
+                                    $("#pending-" + medRecNumber).children("option").remove();
+                                    if (numTestsInList == null)
+                                        console.log("Null");
+                                    else if (numTestsInList.length == 0)
+                                        //update list to show that no tests are currently pending
+                                        $("#pending-" + medRecNumber).add('<option value="" disabled selected>No Tests Ordered</option>');
+                                    else {
+                                        //build pending list from tests returned from API
+                                        for (index = 0; index < numTestsInList.length; ++index) {
+                                            var object = numTestsInList[index];
+                                            var testObtained = object['test'];
+                                            console.log(testObtained);
+                                            $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+                                        }
+                                    }
+
+                                }
+                            });
+                        }
+                    })
+                }
+            }
+        });
+
+        //Event handler for sending "POST" (order) request (of a test panel) to the API
+>>>>>>> API
         $("#aspnetusers .js-order").on("click", function () {
             var button = $(this);
             var varId = button.attr("data-aspnetuser-id");
             var vartest = selectedOption;
             var obj = { Id: varId, test: vartest };
             var jobj = JSON.stringify(obj);
+<<<<<<< HEAD
 
             if (confirm("Are you sure you want to order these tests?")) {
                 $.ajax({
@@ -144,5 +303,95 @@
             }
         });
         });
+=======
+            //If a test has been selected from the test menu, make a "POST" call to the API
+            if (vartest != null)
+                if (confirm("Are you sure you want to order this test?")) {
+                    $.ajax({
+                        method: "POST",
+                        data: jobj,
+                        url: "/api/OrderedTest/",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: 'json',
+                        success: function () {
+                            console.log("Test Ordered. See Pending List.");
+                            //"Get" call is made here to "refresh" the list of pending tests
+                            $.ajax({
+                                method: "GET",
+                                url: "/api/OrderedTest/" + medRecNumber,
+                                data: {},
+                                success: function (data) {
+                                    var numTestsInList = data;
+                                    $("#pending-" + medRecNumber).children("option").remove();
+                                    //for each test panel returned from the API, add to pending list
+                                    for (index = 0; index < numTestsInList.length; ++index) {
+                                        var object = numTestsInList[index];
+                                        var testObtained = object['test'];
+                                        console.log(testObtained);
+                                        $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+                                    }
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        //Event handler for sending "POST" (run tests) request to the API
+        $("#aspnetusers .js-run").on("click", function () {
+            var button = $(this);
+            var varId = button.attr("data-aspnetuser-id");
+            var parentTD = button.parent("td");
+            var pendingDropDown = parentTD.find("select");
+            var testCount = pendingDropDown.find("option").length;
+            //If the pending list is not empty, make a "POST" call to the API
+            if (testCount > 0) {
+                if (confirm("Are you sure you want to run the selected tests?")) {
+                    $.ajax({
+                        method: "POST",
+                        url: "/api/OrderedTest/" + medRecNumber,
+                        success: function () {
+                            console.log("Testing completed.");
+                            /*"PUT" call is made here to request API delete list of pending tests from "OrderedTests" DB table,
+                            since tests have now been completed*/
+                            $.ajax({
+                                method: "PUT",
+                                url: "/api/OrderedTest/" + medRecNumber,
+                                success: function () {
+                                    console.log("No tests pending.");
+                                    //"Get" call is made here to "refresh" the list of pending tests
+                                    $.ajax({
+                                        method: "GET",
+                                        url: "/api/OrderedTest/" + medRecNumber,
+                                        data: {},
+                                        success: function (data) {
+                                            var numTestsInList = data;
+                                            $("#pending-" + medRecNumber).children("option").remove();
+                                            if (numTestsInList == null)
+                                                console.log("Null");
+                                            else if (numTestsInList.length == 0)
+                                                //update list to show that no tests are currently pending
+                                                $("#pending-" + medRecNumber).add('<option value="" disabled selected>No Tests Ordered</option>');
+                                            else {
+                                                //build pending list from tests returned from API
+                                                for (index = 0; index < numTestsInList.length; ++index) {
+                                                    var object = numTestsInList[index];
+                                                    var testObtained = object['test'];
+                                                    console.log(testObtained);
+                                                    $("#pending-" + medRecNumber).append('<option value="' + testObtained + '">' + testObtained + '</option>');
+                                                }
+                                            }
+
+                                        }
+                                    });
+                                }
+                            })
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+>>>>>>> API
 </script>
 }

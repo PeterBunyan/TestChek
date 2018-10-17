@@ -12,16 +12,28 @@ namespace TestChek.Models
         private static int _IdIncrementer = 0;
 
         //represents the unique ID of each test ordered (just incremented here for the sake of simplicity)
+<<<<<<< HEAD
         [Key]
+=======
+        //[Key]
+>>>>>>> API
         public int testId { get; set; }
         //represents the name of a test
         public string testName { get; set; }
         //represents the result of a test
+<<<<<<< HEAD
         public float result { get; set; }
         //represents the minimul value of the test's normal range
         public float minReferenceRange { get; set; }
         //represents the maximum value of the test's normal range
         public float maxReferenceRange { get; set; }
+=======
+        public int result { get; set; }
+        //represents the minimul value of the test's normal range
+        public string minReferenceRange { get; set; }
+        //represents the maximum value of the test's normal range
+        public string maxReferenceRange { get; set; }
+>>>>>>> API
         //represents the units associated with a test's value
         public string units { get; set; }
 
@@ -29,6 +41,7 @@ namespace TestChek.Models
 
         public TestClass()
         {
+<<<<<<< HEAD
 
                 this.testId = System.Threading.Interlocked.Increment(ref _IdIncrementer);
             
@@ -46,6 +59,9 @@ namespace TestChek.Models
             //maxReferenceRange = 5.10f;
             //result = testResult.Next(3, 5);
             //units = "x 10^6/uL";
+=======
+                this.testId = System.Threading.Interlocked.Increment(ref _IdIncrementer);          
+>>>>>>> API
         }
 
         }

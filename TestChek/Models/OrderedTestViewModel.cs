@@ -9,6 +9,7 @@ namespace TestChek.Models
 {
     public class OrderedTestViewModel
     {
+<<<<<<< HEAD
         //[Key]
         //[NotMapped]
         [Key]
@@ -29,6 +30,18 @@ namespace TestChek.Models
 
         public string BMP { get; set; }
 
+=======
+        //Primary Key, though model does not currently exist in DB
+        [Key]
+        public int Id { get; set; }
+        //Stores a list of AspNetUser, a list of "patients" that registered for site access
+        public List<AspNetUser> patientList { get; set; }
+        //Test in Drop-down menu of view
+        public string CBC { get; set; }
+        //Test in Drop-down menu of view
+        public string BMP { get; set; }
+        //Test in Drop-down menu of view
+>>>>>>> API
         public string UA { get; set; }
     }
 }

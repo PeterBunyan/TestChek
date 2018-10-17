@@ -49,7 +49,11 @@ namespace TestChek.Controllers.Api
             pr.firstName = aspNetUserInDB.FirstName;
             pr.lastName = aspNetUserInDB.LastName;
             pr.medRecNumber = aspNetUserInDB.Id;
+<<<<<<< HEAD
             pr.timeofTest = DateTime.Now.Date;
+=======
+            //pr.timeofTest = DateTime.Now.Date;
+>>>>>>> API
 
             _context.PatientRecords.Add(pr);
             _context.SaveChanges();
@@ -89,7 +93,11 @@ namespace TestChek.Controllers.Api
             pr.firstName = aspNetUserInDB.FirstName;
             pr.lastName = aspNetUserInDB.LastName;
             pr.medRecNumber = aspNetUserInDB.Id;
+<<<<<<< HEAD
             pr.timeofTest = DateTime.Now.Date;
+=======
+            //pr.timeofTest = DateTime.Now.Date;
+>>>>>>> API
 
             _context.PatientRecords.Add(pr);
             try

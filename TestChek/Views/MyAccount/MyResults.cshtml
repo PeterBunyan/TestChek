@@ -1,59 +1,120 @@
-﻿@model IEnumerable<TestChek.Models.TestClass>
+﻿@model IEnumerable<TestChek.Models.PatientRecord>
 
 @{
+    /**/
+
+    /**/
+
     ViewBag.Title = "MyResults";
     ViewBag.Class = "container body-content";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string FirstName = "";
+    string LastName = "";
+    string MedRecNumber = "";
 }
 
 <h2>MyResults</h2>
 
-<p>
-    Testing performed on @DateTime.Today.ToShortDateString().
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TestName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Result)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MinReferenceRange)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MaxReferenceRange)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Units)
-        </th>
-    </tr>
 
-    @foreach (var item in Model)
+
+@if (Model.Count() > 0)
+{
+
+
+
+
+    foreach (var item in Model)
     {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TestName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Result)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MinReferenceRange)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MaxReferenceRange)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Units)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td>
-    </tr>
-    }
 
-</table>
+        if ((FirstName != item.firstName) && (LastName != item.lastName) && (MedRecNumber != item.medRecNumber))
+        {
+
+            FirstName = item.firstName;
+            LastName = item.lastName;
+            MedRecNumber = item.medRecNumber;
+        }
+
+    }
+    <p></p>
+    <H3>Last Name: @LastName</H3>
+    <H3>First Name: @FirstName</H3>
+    <H3>Medical Record Number: @MedRecNumber</H3>
+
+    <p></p>
+    <table id="PatientRecords" class="table table-bordered table-hover">
+        <tr>
+            <th>
+                @*@Html.DisplayNameFor(model => model.timeofTest)*@
+                Time of Test
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.testName)*@
+                Test Name
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.result)*@
+                Result
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.minReferenceRange)*@
+                Reference Range Min.
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.maxReferenceRange)*@
+                Reference Range Max.
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.units)*@
+                Units
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.orderingProvider)*@
+                Ordering Provider
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.timeofTest)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.testName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.result)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.minReferenceRange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.maxReferenceRange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.units)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.orderingProvider)
+            </td>
+        </tr>
+        }
+
+    </table>
+}
+
+else
+{
+    <H3>No testing completed for this account.</H3>
+}
+
+@section scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            $("#PatientRecords").DataTable();
+        });
+    </script>
+}

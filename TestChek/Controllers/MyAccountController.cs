@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TestChek.Models;
+using Microsoft.AspNet.Identity;
 
 namespace TestChek.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Roles.CanViewOrOrderTests)]
     public class MyAccountController : Controller
     {
+<<<<<<< HEAD
         List<PatientRecord> patientRecord = new List<PatientRecord>();
 
         // GET: MyAccount
@@ -18,25 +20,35 @@ namespace TestChek.Controllers
             
             return View();
         }
+=======
+        private ModelDBContext _context;
+>>>>>>> API
 
-        public ActionResult MyResults()
+        public MyAccountController()
         {
+<<<<<<< HEAD
 
             //patientRecord = db.GetResultRecord("lastName");
             //passes new instance of patient results to the view
             var CBCPanelResults = GetCBCResults();
 
             return View(CBCPanelResults);
+=======
+            _context = new ModelDBContext();
+>>>>>>> API
         }
+        IEnumerable<PatientRecord> patientRecord = new List<PatientRecord>();
 
-        public ActionResult PayMyBill()
+        // GET: MyAccount
+        public ActionResult Index()
         {
+            
             return View();
         }
 
-        //builds new panel of tests
-        private IEnumerable<TestClass> GetCBCResults()
+        public ActionResult MyResults(string id)
         {
+<<<<<<< HEAD
             //testResult used to generate random results to simulate different patients
             Random testResult = new Random(Guid.NewGuid().GetHashCode());
             return new List<TestClass>
@@ -46,10 +58,17 @@ namespace TestChek.Controllers
                 new TestClass { testName = "HGB", result = (testResult.Next(750, 1650) / 100), minReferenceRange = 11.5f, maxReferenceRange = 15.3f, units = "g/dL"},
                 new TestClass { testName = "HCT", result = (testResult.Next(2520, 4710) / 100), minReferenceRange = 35.2f, maxReferenceRange = 45.1f, units = "%" },
                 new TestClass { testName = "PLT", result = (testResult.Next(900, 6010) / 10), minReferenceRange = 160.0f, maxReferenceRange = 401.0f, units = "x 10^3/uL" }
+=======
+>>>>>>> API
 
-                };
-        }
+            if (User.IsInRole(Roles.CanOrderTests))
+            {
+                var resultsToProvider = _context.PatientRecords.Where(c => c.medRecNumber == id);
+                patientRecord = resultsToProvider;
+                return View(patientRecord);
+            }
 
+<<<<<<< HEAD
         private IEnumerable<TestClass> GetCompMetaResults()
         {
             //testResult used to generate random results to simulate different patients
@@ -99,5 +118,15 @@ namespace TestChek.Controllers
                 };
         }
         
+=======
+            var userId = User.Identity.GetUserId();
+
+            var resultsToPatient = _context.PatientRecords.Where(c => c.medRecNumber == userId);
+            patientRecord = resultsToPatient;
+            return View(patientRecord);
+
+        }
+
+>>>>>>> API
     }
 }

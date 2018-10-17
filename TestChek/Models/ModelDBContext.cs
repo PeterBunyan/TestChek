@@ -20,18 +20,28 @@ namespace TestChek.Models
             {
             }
 
+<<<<<<< HEAD
             public virtual DbSet<TestClass> TestClasses { get; set; }
             public virtual DbSet<PatientRecord> PatientRecords { get; set; }
             public virtual DbSet<OrderedTest> OrderedTests { get; set; }
             public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+=======
+            public virtual DbSet<PatientRecord> PatientRecords { get; set; }
+            public virtual DbSet<OrderedTest> OrderedTests { get; set; }
+            public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+            public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
+>>>>>>> API
             public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
             public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
             public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
 
+<<<<<<< HEAD
             //simplified from: public System.Data.Entity.DbSet<TestChek.Models.OrderedTestViewModel> OrderedTestViewModels { get; set; }
             //public virtual DbSet<OrderedTestViewModel> OrderedTestViewModels { get; set; }
             //public System.Data.Entity.DbSet<TestChek.ViewModel.OrderedTestViewModel> OrderedTestViewModels { get; set; }
 
+=======
+>>>>>>> API
 
 
 

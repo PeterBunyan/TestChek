@@ -11,7 +11,11 @@ namespace TestChek.Controllers
     {
         public ActionResult Index()
         {
+<<<<<<< HEAD
             if (User.IsInRole(RoleName.IsProvider))
+=======
+            if (User.IsInRole(Roles.CanOrderTests))
+>>>>>>> API
                 return View("IndexProvider");
             
             return View();
